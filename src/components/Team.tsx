@@ -60,7 +60,7 @@ const teamMembers: TeamMember[] = [
     name: 'Shubhankar Dhara',
     role: 'Mechanical Head',
     bio: 'Expert in drone mechanics and structures.',
-    image: '/images/shubhankar.jpg',
+    image: shubhankarPic,
   },
 ];
 
