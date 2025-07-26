@@ -3,88 +3,81 @@ import { Target, Lightbulb, Trophy } from 'lucide-react';
 
 const About: React.FC = () => {
   return (
-    <section id="about" className="py-20 bg-gray-50 dark:bg-gray-900">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-6">
-            About the Drones Club
+    <section id="about" className="py-24 bg-gray-50 dark:bg-gray-900">
+      <div className="max-w-7xl mx-auto px-6">
+        {/* Section Heading */}
+        <div className="text-center mb-20">
+          <h2 className="text-4xl md:text-5xl font-extrabold text-gray-900 dark:text-white">
+            About <span className="text-blue-600">Dronex Club</span>
           </h2>
-          <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
-            Founded by passionate students who believe the future is autonomous, 
-            the Drones Club is more than a club—it's a launchpad for tomorrow's innovators.
+          <p className="mt-4 text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
+            Pioneering the future of aerial robotics through hands-on innovation, collaboration, and a drive to lead.
           </p>
         </div>
 
-        <div className="grid lg:grid-cols-2 gap-16 items-center mb-16">
+        {/* Our Story */}
+        <div className="grid lg:grid-cols-2 gap-14 items-center mb-20">
           <div>
-            <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">
-              Our Story
+            <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">
+              Our Origin
             </h3>
-            <p className="text-gray-600 dark:text-gray-300 mb-6 leading-relaxed">
-              The Drones Club was born in 2023 when a group of engineering students realized 
-              that traditional education wasn't keeping pace with the rapid evolution 
-              of drone technology. We set out to create a space where theory meets 
-              practice, where ideas take flight.
+            <p className="text-gray-700 dark:text-gray-300 mb-4 leading-relaxed">
+              Dronex Club was born in 2025 at Shivalik College of Engineering by a group of passionate technophiles determined to create a dedicated ecosystem for drone innovation on campus.
             </p>
-            <p className="text-gray-600 dark:text-gray-300 leading-relaxed">
-              Today, we're a thriving community of over 150 members from diverse 
-              disciplines—engineering, computer science, business, and design—all 
-              united by our passion for unmanned aerial systems and their potential 
-              to revolutionize industries.
+            <p className="text-gray-700 dark:text-gray-300 leading-relaxed">
+              Starting with a vision to build programmable quadcopters and compete at national levels, the club quickly grew into a dynamic platform for students from multiple disciplines — CSE, Mechanical, Electronics — working together on real-world UAV systems.
             </p>
           </div>
           <div className="relative">
             <img
               src="https://images.pexels.com/photos/442587/pexels-photo-442587.jpeg?auto=compress&cs=tinysrgb&w=800"
-              alt="Drone technology"
-              className="rounded-2xl shadow-2xl"
+              alt="Drone in flight"
+              className="rounded-2xl shadow-xl"
             />
-            <div className="absolute -bottom-6 -right-6 w-32 h-32 bg-blue-600 rounded-2xl flex items-center justify-center">
-              <span className="text-white text-2xl font-bold">150+</span>
+            <div className="absolute -bottom-6 -right-6 w-28 h-28 bg-blue-600 text-white text-2xl font-bold rounded-2xl flex items-center justify-center shadow-md">
+              150+
             </div>
           </div>
         </div>
 
-        <div className="grid md:grid-cols-3 gap-8">
-          <div className="text-center p-8 bg-gray-50 dark:bg-gray-800 rounded-2xl hover:shadow-lg transition-shadow duration-300">
+        {/* Mission, Vision, Values */}
+        <div className="grid md:grid-cols-3 gap-10">
+          {/* Mission */}
+          <div className="text-center p-8 bg-white dark:bg-gray-800 rounded-2xl shadow hover:shadow-xl transition duration-300">
             <div className="w-16 h-16 bg-blue-600 rounded-full flex items-center justify-center mx-auto mb-6">
               <Target className="w-8 h-8 text-white" />
             </div>
-            <h4 className="text-xl font-bold text-gray-900 dark:text-white mb-4">
+            <h4 className="text-xl font-semibold text-gray-900 dark:text-white mb-3">
               Our Mission
             </h4>
             <p className="text-gray-600 dark:text-gray-300">
-              To advance drone technology through hands-on learning, innovative 
-              research, and competitive excellence while fostering the next 
-              generation of aerospace leaders.
+              To empower students in building and programming drones, solving real-world challenges through interdisciplinary teamwork and competitive exposure.
             </p>
           </div>
 
-          <div className="text-center p-8 bg-gray-50 dark:bg-gray-800 rounded-2xl hover:shadow-lg transition-shadow duration-300">
+          {/* Vision */}
+          <div className="text-center p-8 bg-white dark:bg-gray-800 rounded-2xl shadow hover:shadow-xl transition duration-300">
             <div className="w-16 h-16 bg-green-600 rounded-full flex items-center justify-center mx-auto mb-6">
               <Lightbulb className="w-8 h-8 text-white" />
             </div>
-            <h4 className="text-xl font-bold text-gray-900 dark:text-white mb-4">
+            <h4 className="text-xl font-semibold text-gray-900 dark:text-white mb-3">
               Our Vision
             </h4>
             <p className="text-gray-600 dark:text-gray-300">
-              To be the premier collegiate drone program, known for producing 
-              industry-ready professionals and groundbreaking innovations in 
-              autonomous systems.
+              To become a nationally recognized student drone club, known for innovative hardware, aerial intelligence, and preparing the next generation of UAV engineers.
             </p>
           </div>
 
-          <div className="text-center p-8 bg-gray-50 dark:bg-gray-800 rounded-2xl hover:shadow-lg transition-shadow duration-300">
+          {/* Values */}
+          <div className="text-center p-8 bg-white dark:bg-gray-800 rounded-2xl shadow hover:shadow-xl transition duration-300">
             <div className="w-16 h-16 bg-purple-600 rounded-full flex items-center justify-center mx-auto mb-6">
               <Trophy className="w-8 h-8 text-white" />
             </div>
-            <h4 className="text-xl font-bold text-gray-900 dark:text-white mb-4">
+            <h4 className="text-xl font-semibold text-gray-900 dark:text-white mb-3">
               Our Values
             </h4>
             <p className="text-gray-600 dark:text-gray-300">
-              Innovation, collaboration, excellence, and safety guide everything 
-              we do. We believe in pushing boundaries while maintaining the 
-              highest standards of responsibility.
+              Curiosity. Precision. Teamwork. Safety. A culture of hands-on learning and ethical innovation fuels our growth and purpose.
             </p>
           </div>
         </div>

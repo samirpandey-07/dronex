@@ -51,15 +51,14 @@ const Gallery: React.FC = () => {
   ];
 
   return (
-    <section id="gallery" className="py-20 bg-gray-50 dark:bg-gray-800">
+    <section id="gallery" className="py-20 bg-gray-50 dark:bg-gray-900">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-6">
+          <h2 className="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-4">
             Gallery
           </h2>
-          <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
-            Capturing moments of innovation, competition, and collaboration 
-            from our journey in advancing drone technology.
+          <p className="text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
+            Capturing moments of innovation, competition, and collaboration from our journey in advancing drone technology.
           </p>
         </div>
 
@@ -67,27 +66,23 @@ const Gallery: React.FC = () => {
           {galleryItems.map((item) => (
             <div
               key={item.id}
-              className="relative group cursor-pointer overflow-hidden rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2"
+              className="relative group overflow-hidden rounded-2xl shadow-md cursor-pointer hover:shadow-xl transform transition duration-300 hover:-translate-y-1"
               onClick={() => setSelectedItem(item)}
             >
               <img
                 src={item.src}
                 alt={item.title}
-                className="w-full h-64 object-cover group-hover:scale-110 transition-transform duration-500"
+                className="w-full h-64 object-cover transition-transform duration-500 group-hover:scale-105"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-              <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                {item.type === 'video' ? (
-                  <Play className="w-12 h-12 text-white" />
-                ) : (
-                  <div className="w-12 h-12 border-2 border-white rounded-full flex items-center justify-center">
-                    <span className="text-white text-2xl">+</span>
-                  </div>
-                )}
+              <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition duration-300" />
+              <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-300">
+                <div className="w-12 h-12 rounded-full border-2 border-white flex items-center justify-center">
+                  <span className="text-white text-2xl">+</span>
+                </div>
               </div>
-              <div className="absolute bottom-0 left-0 right-0 p-4 text-white transform translate-y-full group-hover:translate-y-0 transition-transform duration-300">
-                <h3 className="font-semibold mb-1">{item.title}</h3>
-                <p className="text-sm opacity-90">{item.description}</p>
+              <div className="absolute bottom-0 left-0 right-0 p-4 bg-black/60 text-white translate-y-full group-hover:translate-y-0 transition-transform duration-300">
+                <h3 className="font-semibold">{item.title}</h3>
+                <p className="text-sm">{item.description}</p>
               </div>
             </div>
           ))}
@@ -95,22 +90,27 @@ const Gallery: React.FC = () => {
 
         {/* Modal */}
         {selectedItem && (
-          <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80">
-            <div className="relative max-w-4xl max-h-full">
+          <div
+            className="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center px-4"
+            role="dialog"
+            aria-modal="true"
+          >
+            <div className="relative max-w-4xl w-full max-h-screen overflow-y-auto rounded-lg bg-gray-900 p-6 shadow-2xl">
               <button
                 onClick={() => setSelectedItem(null)}
-                className="absolute top-4 right-4 z-10 p-2 bg-white/20 rounded-full hover:bg-white/30 transition-colors duration-200"
+                className="absolute top-4 right-4 text-white hover:text-red-400"
+                aria-label="Close"
               >
-                <X className="w-6 h-6 text-white" />
+                <X className="w-6 h-6" />
               </button>
               <img
                 src={selectedItem.src}
                 alt={selectedItem.title}
-                className="max-w-full max-h-[80vh] object-contain rounded-lg"
+                className="w-full max-h-[70vh] object-contain rounded-md mb-4"
               />
-              <div className="absolute bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-black/80 to-transparent text-white">
-                <h3 className="text-xl font-bold mb-2">{selectedItem.title}</h3>
-                <p className="opacity-90">{selectedItem.description}</p>
+              <div className="text-white">
+                <h3 className="text-2xl font-bold mb-2">{selectedItem.title}</h3>
+                <p className="text-gray-300">{selectedItem.description}</p>
               </div>
             </div>
           </div>

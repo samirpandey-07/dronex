@@ -45,16 +45,22 @@ const Navbar: React.FC = () => {
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
-          <div className="flex items-center space-x-2">
-            <div className="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center">
-              <span className="text-white font-bold text-sm">DC</span>
+          {/* Logo + Club Name */}
+          <button
+            onClick={() => scrollToSection('#home')}
+            className="flex items-center space-x-3 focus:outline-none"
+          >
+            <div className="w-10 h-10 bg-gradient-to-r from-blue-600 to-blue-400 rounded-xl flex items-center justify-center shadow-md">
+              <span className="text-white font-extrabold text-lg tracking-wide">
+                DX
+              </span>
             </div>
             <span className="text-xl font-bold text-gray-900 dark:text-white">
               Drones Club
             </span>
-          </div>
+          </button>
 
-          {/* Desktop Navigation */}
+          {/* Desktop Nav */}
           <div className="hidden md:flex items-center space-x-8">
             {navItems.map((item) => (
               <button
@@ -77,7 +83,7 @@ const Navbar: React.FC = () => {
             </button>
           </div>
 
-          {/* Mobile menu button */}
+          {/* Mobile Nav Button */}
           <div className="md:hidden flex items-center space-x-2">
             <button
               onClick={toggleTheme}
@@ -102,7 +108,7 @@ const Navbar: React.FC = () => {
           </div>
         </div>
 
-        {/* Mobile Navigation */}
+        {/* Mobile Nav Menu */}
         {isMenuOpen && (
           <div className="md:hidden absolute top-16 left-0 right-0 bg-white dark:bg-gray-900 shadow-lg border-t border-gray-200 dark:border-gray-700">
             <div className="px-4 py-2 space-y-2">
