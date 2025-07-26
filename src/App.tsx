@@ -10,6 +10,11 @@ import Events from './components/Events';
 import JoinUs from './components/JoinUs';
 import Contact from './components/Contact';
 import Footer from './components/Footer';
+import JoinForm from './components/JoinForm';
+import FloatingJoinButton from './components/FloatingJoinButton';
+
+
+
 
 function App() {
   return (
@@ -22,7 +27,8 @@ function App() {
         <Roadmap />
         <Gallery />
         <Events />
-        <JoinUs />
+         <JoinForm />
+        <FloatingJoinButton />
         <Contact />
         <Footer />
       </div>

@@ -23,7 +23,6 @@ const Navbar: React.FC = () => {
     { href: '#roadmap', label: 'Roadmap' },
     { href: '#gallery', label: 'Gallery' },
     { href: '#events', label: 'Events' },
-    { href: '#join', label: 'Join Us' },
     { href: '#contact', label: 'Contact' },
   ];
 

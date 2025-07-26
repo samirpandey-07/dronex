@@ -37,14 +37,15 @@ const Hero: React.FC = () => {
           Igniting Innovation, Building the Future of Drone Technology.
         </p>
 
-        <button
-          onClick={() =>
-            document.querySelector('#join')?.scrollIntoView({ behavior: 'smooth' })
-          }
-          className="px-10 py-4 bg-blue-600 hover:bg-blue-700 text-white text-lg font-semibold rounded-full transition-transform duration-300 transform hover:scale-105 shadow-lg hover:shadow-blue-400/30"
-        >
-          Join DroneX
-        </button>
+        <a
+  href="https://forms.gle/iG6LmZ1JufbFEPCx6"
+  target="_blank"
+  rel="noopener noreferrer"
+  className="inline-block px-10 py-4 bg-blue-600 hover:bg-blue-700 text-white text-lg font-semibold rounded-full transition-transform duration-300 transform hover:scale-105 shadow-lg hover:shadow-blue-400/30"
+>
+  Join DroneX
+</a>
+
       </div>
 
       {/* Scroll Indicator */}
