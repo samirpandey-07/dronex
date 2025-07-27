@@ -48,7 +48,7 @@ const teamMembers: TeamMember[] = [
     name: 'Khushi Thapliyal',
     role: 'Event Coordinator',
     bio: 'Coordinates workshops and events.',
-    image: '/images/khushi.jpg',
+    image: khushiPic,
   },
   {
     name: 'Tabassum Latif',
