@@ -6,6 +6,8 @@ import sauravPic from '../assets/sauravpic.jpg';
 import tabassumPic from '../assets/tabassum.jpg';
 import khushiPic from '../assets/khushipic.jpg';
 import shubhankarPic from '../assets/shubhankarpic.jpg';
+import shubhamPic from '../assets/shubhampic.jpg';
+
 interface TeamMember {
   name: string;
   role: string;
@@ -42,7 +44,7 @@ const teamMembers: TeamMember[] = [
     name: 'Shubham Kumar',
     role: 'Technical Head',
     bio: 'Oversees technical development and projects.',
-    image: '/images/shubham.jpg',
+    image: shubhamPic,
   },
   {
     name: 'Khushi Thapliyal',
