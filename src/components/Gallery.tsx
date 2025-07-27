@@ -9,14 +9,14 @@ const Gallery: React.FC = () => {
     {
       id: 1,
       type: 'image',
-      src: 'https://images.pexels.com/photos/1034662/pexels-photo-1034662.jpeg?auto=compress&cs=tinysrgb&w=800',
+      src: 'https://images.pexels.com/photos/3862132/pexels-photo-3862132.jpeg?auto=compress&cs=tinysrgb&w=800',
       title: 'Precision Flight Training',
       description: 'Members practicing advanced maneuvers in our training facility',
     },
     {
       id: 2,
       type: 'image',
-      src: 'https://images.pexels.com/photos/442587/pexels-photo-442587.jpeg?auto=compress&cs=tinysrgb&w=800',
+      src: 'https://images.pexels.com/photos/3862132/pexels-photo-3862132.jpeg?auto=compress&cs=tinysrgb&w=800',
       title: 'Racing Competition',
       description: 'DroneX team competing in the regional drone racing championship',
     },
@@ -30,7 +30,7 @@ const Gallery: React.FC = () => {
     {
       id: 4,
       type: 'image',
-      src: 'https://images.pexels.com/photos/724994/pexels-photo-724994.jpeg?auto=compress&cs=tinysrgb&w=800',
+      src: 'https://images.pexels.com/photos/3862132/pexels-photo-3862132.jpeg?auto=compress&cs=tinysrgb&w=800',
       title: 'Autonomous Testing',
       description: 'Testing our latest autonomous navigation algorithms',
     },
