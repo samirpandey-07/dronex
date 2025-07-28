@@ -2,12 +2,12 @@ import React, { useState } from 'react';
 import { X, Mail, Linkedin } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { GalleryItem } from '../types';
-import img1 from '../assets/gallery1.jpg';
-import img2 from '../assets/gallery2.jpg';
-import img3 from '../assets/gallery3.jpg';
-import img4 from '../assets/gallery4.jpg';
-import img5 from '../assets/gallery5.jpg';
-import img6 from '../assets/gallery6.jpg';
+import img1 from '../assets/gallery-1.jpg';
+import img2 from '../assets/gallery-2.jpg';
+import img3 from '../assets/gallery-3.jpg';
+import img4 from '../assets/gallery-4.jpg';
+import img5 from '../assets/gallery-5.jpg';
+import img6 from '../assets/gallery-6.jpg';
 
 const Gallery: React.FC = () => {
   const [selectedItem, setSelectedItem] = useState<GalleryItem | null>(null);
