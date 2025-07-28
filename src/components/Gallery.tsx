@@ -8,7 +8,6 @@ import img3 from '../assets/gallery3.jpg';
 import img4 from '../assets/gallery4.jpg';
 import img5 from '../assets/gallery5.jpg';
 import img6 from '../assets/gallery6.jpg';
-import { i, img } from 'framer-motion/client';
 
 const Gallery: React.FC = () => {
   const [selectedItem, setSelectedItem] = useState<GalleryItem | null>(null);
@@ -84,6 +83,7 @@ const Gallery: React.FC = () => {
               <img
                 src={item.src}
                 alt={item.title}
+                loading="lazy"
                 className="w-full h-64 object-cover transition-transform duration-500 group-hover:scale-105"
               />
               <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition duration-300" />
@@ -127,6 +127,7 @@ const Gallery: React.FC = () => {
                 <img
                   src={selectedItem.src}
                   alt={selectedItem.title}
+                  loading="lazy"
                   className="w-full max-h-[70vh] object-contain rounded-md mb-4"
                 />
                 <div className="text-white space-y-2">
