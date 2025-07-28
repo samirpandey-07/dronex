@@ -13,6 +13,8 @@ interface TeamMember {
   role: string;
   bio: string;
   image: string;
+  email?: string;
+  linkedin?: string;
 }
 
 const teamMembers: TeamMember[] = [
@@ -21,48 +23,88 @@ const teamMembers: TeamMember[] = [
     role: 'President',
     bio: 'Leading the club with vision and energy.',
     image: sonuPic,
+    email: 'sonu@example.com',
+    linkedin: 'https://linkedin.com/in/sonukumar',
   },
   {
     name: 'Shreshth Upreti',
     role: 'Vice President',
     bio: 'Strategizing and assisting in operations.',
     image: shreshthPic,
+    email: 'shreshth@example.com',
+    linkedin: 'https://linkedin.com/in/shreshthupreti',
   },
   {
     name: 'Samir Pandey',
     role: 'Treasurer',
     bio: 'Manages club funds and resources.',
-    image: samirPic, // Your uploaded passport image
+    image: samirPic,
+    email: 'pamdeysamir@gmail.com',
+    linkedin: 'https://linkedin.com/in/samir-pandey17',
   },
   {
     name: 'Saurav Kumar',
     role: 'PR & Media Head',
     bio: 'Handles outreach and public image.',
     image: sauravPic,
+    email: 'saurav@example.com',
+    linkedin: 'https://linkedin.com/in/sauravkumar',
   },
   {
     name: 'Shubham Kumar',
     role: 'Technical Head',
     bio: 'Oversees technical development and projects.',
     image: shubhamPic,
+    email: 'shubham@example.com',
+    linkedin: 'https://linkedin.com/in/shubhamkumar',
   },
   {
     name: 'Khushi Thapliyal',
     role: 'Event Coordinator',
     bio: 'Coordinates workshops and events.',
     image: khushiPic,
+    email: 'khushi@example.com',
+    linkedin: 'https://linkedin.com/in/khushithapliyal',
   },
   {
     name: 'Tabassum Latif',
     role: 'Event Coordinator',
     bio: 'Ensures smooth execution of all activities.',
     image: tabassumPic,
+    email: 'tabassum@example.com',
+    linkedin: 'https://linkedin.com/in/tabassumlatif',
   },
   {
     name: 'Shubhankar Dhara',
     role: 'Mechanical Head',
     bio: 'Expert in drone mechanics and structures.',
     image: shubhankarPic,
+    email: 'shubhankar@example.com',
+    linkedin: 'https://linkedin.com/in/shubhankardhara',
+  },
+];
+
+const mentors: TeamMember[] = [
+  {
+    name: 'Dr. Abhishek Jha',
+    role: 'Club Coordinator',
+    bio: 'Guiding and supervising club operations.',
+    image: '',
+    email: 'abhishek.jha@shivalikcollege.edu.in',
+  },
+  {
+    name: 'Mr. Ashish Kumar Gupta',
+    role: 'Mentor (ERP Head)',
+    bio: 'Mentoring drone development and innovation.',
+    image: '',
+    email: 'ashish.gupta@shivalikcollege.edu.in',
+  },
+  {
+    name: 'Mr. Abhinav Narain',
+    role: 'Mentor',
+    bio: 'Supports with technical and management expertise.',
+    image: '',
+    email: 'abhinav.narain@shivalikcollege.edu.in',
   },
 ];
 
@@ -75,18 +117,51 @@ const Team: React.FC = () => {
           {teamMembers.map((member, index) => (
             <div
               key={index}
-              className="flex flex-col items-center bg-white rounded-2xl p-6 shadow-xl transition-transform hover:scale-105"
+              className="flex flex-col items-center bg-white rounded-2xl p-6 shadow-xl transition-transform hover:scale-105 duration-300"
             >
-              <img
-                src={member.image}
-                alt={member.name}
-                className="w-32 h-32 object-cover rounded-full border-4 border-white shadow-lg mb-4"
-              />
+              {member.image && (
+                <img
+                  src={member.image}
+                  alt={member.name}
+                  className="w-32 h-32 object-cover rounded-full border-4 border-white shadow-lg mb-4"
+                />
+              )}
               <h3 className="text-xl font-semibold text-gray-800">{member.name}</h3>
               <p className="text-sm text-blue-600 font-medium">{member.role}</p>
               <p className="text-gray-500 text-sm mt-2 text-center">{member.bio}</p>
+              <div className="mt-2 space-y-1 text-sm text-gray-600">
+                {member.email && (
+                  <p>
+                    📧 <a href={`mailto:${member.email}`} className="text-blue-500 hover:underline">{member.email}</a>
+                  </p>
+                )}
+                {member.linkedin && (
+                  <p>
+                    🔗 <a href={member.linkedin} target="_blank" className="text-blue-500 hover:underline">LinkedIn</a>
+                  </p>
+                )}
+              </div>
             </div>
           ))}
+        </div>
+
+        {/* Mentors and Coordinators Section */}
+        <div className="mt-20 text-left">
+          <h3 className="text-3xl font-bold text-gray-800 mb-6 text-center">Coordinators & Mentors</h3>
+          <div className="grid gap-6 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+            {mentors.map((mentor, idx) => (
+              <div key={idx} className="bg-white rounded-2xl p-6 shadow-md hover:shadow-lg transition-shadow">
+                <h4 className="text-xl font-semibold text-gray-800">{mentor.name}</h4>
+                <p className="text-sm text-blue-600 font-medium">{mentor.role}</p>
+                <p className="text-gray-500 mt-2">{mentor.bio}</p>
+                {mentor.email && (
+                  <p className="mt-2 text-sm text-gray-600">
+                    📧 <a href={`mailto:${mentor.email}`} className="text-blue-500 hover:underline">{mentor.email}</a>
+                  </p>
+                )}
+              </div>
+            ))}
+          </div>
         </div>
       </div>
     </section>

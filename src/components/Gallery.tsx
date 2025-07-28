@@ -1,6 +1,14 @@
 import React, { useState } from 'react';
-import { X, Play } from 'lucide-react';
+import { X, Mail, Linkedin } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
 import { GalleryItem } from '../types';
+import img1 from '../assets/gallery1.jpg';
+import img2 from '../assets/gallery2.jpg';
+import img3 from '../assets/gallery3.jpg';
+import img4 from '../assets/gallery4.jpg';
+import img5 from '../assets/gallery5.jpg';
+import img6 from '../assets/gallery6.jpg';
+import { i, img } from 'framer-motion/client';
 
 const Gallery: React.FC = () => {
   const [selectedItem, setSelectedItem] = useState<GalleryItem | null>(null);
@@ -9,44 +17,44 @@ const Gallery: React.FC = () => {
     {
       id: 1,
       type: 'image',
-      src: 'https://images.pexels.com/photos/3862132/pexels-photo-3862132.jpeg?auto=compress&cs=tinysrgb&w=800',
-      title: 'Precision Flight Training',
-      description: 'Members practicing advanced maneuvers in our training facility',
+      src: img1,
+      title: 'Drone Orientation',
+      description: 'First club meetup discussing drone basics and team formation.',
     },
     {
       id: 2,
       type: 'image',
-      src: 'https://images.pexels.com/photos/3862132/pexels-photo-3862132.jpeg?auto=compress&cs=tinysrgb&w=800',
-      title: 'Racing Competition',
-      description: 'DroneX team competing in the regional drone racing championship',
+      src: img2,
+      title: 'Intro to Components',
+      description: 'Learning about ESCs, propellers, and flight controllers hands-on.',
     },
     {
       id: 3,
       type: 'image',
-      src: 'https://images.pexels.com/photos/2599244/pexels-photo-2599244.jpeg?auto=compress&cs=tinysrgb&w=800',
-      title: 'Workshop Session',
-      description: 'Hands-on drone assembly workshop for new members',
+      src: img3,
+      title: 'Soldering Workshop',
+      description: 'First DIY soldering session for assembling basic drone circuits.',
     },
     {
       id: 4,
       type: 'image',
-      src: 'https://images.pexels.com/photos/3862132/pexels-photo-3862132.jpeg?auto=compress&cs=tinysrgb&w=800',
-      title: 'Autonomous Testing',
-      description: 'Testing our latest autonomous navigation algorithms',
+      src: img4,
+      title: 'Flight Practice',
+      description: 'Initial outdoor flight testing with basic drones.',
     },
     {
       id: 5,
       type: 'image',
-      src: 'https://images.pexels.com/photos/1475730/pexels-photo-1475730.jpeg?auto=compress&cs=tinysrgb&w=800',
-      title: 'Team Building',
-      description: 'Annual team retreat and strategy planning session',
+      src: img5,
+      title: 'Idea Discussion',
+      description: 'Brainstorming sessions about hybrid drone possibilities.',
     },
     {
       id: 6,
       type: 'image',
-      src: 'https://images.pexels.com/photos/1034653/pexels-photo-1034653.jpeg?auto=compress&cs=tinysrgb&w=800',
-      title: 'Innovation Lab',
-      description: 'Our state-of-the-art development and testing laboratory',
+      src: img6,
+      title: 'Team Bonding',
+      description: 'Enjoying the journey as a newly formed technical club.',
     },
   ];
 
@@ -58,14 +66,18 @@ const Gallery: React.FC = () => {
             Gallery
           </h2>
           <p className="text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
-            Capturing moments of innovation, competition, and collaboration from our journey in advancing drone technology.
+            Glimpses of our DroneX Club’s initial steps — learning, exploring, and building together!
           </p>
         </div>
 
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
           {galleryItems.map((item) => (
-            <div
+            <motion.div
               key={item.id}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.4 }}
               className="relative group overflow-hidden rounded-2xl shadow-md cursor-pointer hover:shadow-xl transform transition duration-300 hover:-translate-y-1"
               onClick={() => setSelectedItem(item)}
             >
@@ -84,37 +96,63 @@ const Gallery: React.FC = () => {
                 <h3 className="font-semibold">{item.title}</h3>
                 <p className="text-sm">{item.description}</p>
               </div>
-            </div>
+            </motion.div>
           ))}
         </div>
 
         {/* Modal */}
-        {selectedItem && (
-          <div
-            className="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center px-4"
-            role="dialog"
-            aria-modal="true"
-          >
-            <div className="relative max-w-4xl w-full max-h-screen overflow-y-auto rounded-lg bg-gray-900 p-6 shadow-2xl">
-              <button
-                onClick={() => setSelectedItem(null)}
-                className="absolute top-4 right-4 text-white hover:text-red-400"
-                aria-label="Close"
+        <AnimatePresence>
+          {selectedItem && (
+            <motion.div
+              className="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center px-4"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              role="dialog"
+              aria-modal="true"
+            >
+              <motion.div
+                className="relative max-w-4xl w-full max-h-screen overflow-y-auto rounded-lg bg-gray-900 p-6 shadow-2xl"
+                initial={{ scale: 0.8 }}
+                animate={{ scale: 1 }}
+                exit={{ scale: 0.8 }}
               >
-                <X className="w-6 h-6" />
-              </button>
-              <img
-                src={selectedItem.src}
-                alt={selectedItem.title}
-                className="w-full max-h-[70vh] object-contain rounded-md mb-4"
-              />
-              <div className="text-white">
-                <h3 className="text-2xl font-bold mb-2">{selectedItem.title}</h3>
-                <p className="text-gray-300">{selectedItem.description}</p>
-              </div>
-            </div>
-          </div>
-        )}
+                <button
+                  onClick={() => setSelectedItem(null)}
+                  className="absolute top-4 right-4 text-white hover:text-red-400"
+                  aria-label="Close"
+                >
+                  <X className="w-6 h-6" />
+                </button>
+                <img
+                  src={selectedItem.src}
+                  alt={selectedItem.title}
+                  className="w-full max-h-[70vh] object-contain rounded-md mb-4"
+                />
+                <div className="text-white space-y-2">
+                  <h3 className="text-2xl font-bold">{selectedItem.title}</h3>
+                  <p className="text-gray-300">{selectedItem.description}</p>
+                  <div className="flex gap-4 pt-4">
+                    <a
+                      href="mailto:pandeysamir@gmail.com"
+                      className="flex items-center gap-2 text-blue-400 hover:underline"
+                    >
+                      <Mail className="w-5 h-5" /> pandeysamir@gmail.com
+                    </a>
+                    <a
+                      href="https://www.linkedin.com/in/your-linkedin-id"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-center gap-2 text-blue-400 hover:underline"
+                    >
+                      <Linkedin className="w-5 h-5" /> LinkedIn
+                    </a>
+                  </div>
+                </div>
+              </motion.div>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </div>
     </section>
   );
