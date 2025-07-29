@@ -1,101 +1,132 @@
 import React from "react";
-import { Mail, Phone, MapPin } from "lucide-react";
+import {
+  Mail,
+  Phone,
+  MapPin,
+  Instagram,
+  Twitter,
+  Linkedin,
+} from "lucide-react";
 
 const Contact: React.FC = () => {
   return (
     <section
-      id="contact"  // ✅ Added ID for anchor navigation
-      className="bg-gray-50 dark:bg-gray-900 py-16 px-4 sm:px-6 lg:px-8"
+      id="contact"
+      className="bg-gradient-to-br from-blue-50 to-white dark:from-gray-900 dark:to-black py-20 px-6"
     >
       <div className="max-w-6xl mx-auto">
+        {/* Header */}
         <div className="text-center mb-16">
-          <h2 className="text-4xl font-extrabold text-gray-900 dark:text-white mb-4">
-            Contact Us
+          <h2 className="text-5xl font-bold text-gray-900 dark:text-white mb-4">
+            Get in Touch
           </h2>
-          <p className="text-lg text-gray-600 dark:text-gray-300">
-            We'd love to hear from you! Reach out to us with any questions or collaboration ideas.
+          <p className="text-lg text-gray-600 dark:text-gray-400">
+            Have questions or want to collaborate? We'd love to hear from you.
           </p>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-10 mb-12">
-          {/* Email */}
-          <div className="bg-white dark:bg-gray-800 rounded-xl shadow-md p-6 text-center">
-            <Mail className="mx-auto mb-4 h-10 w-10 text-blue-600" />
-            <h3 className="text-xl font-semibold text-gray-800 dark:text-white mb-2">Email</h3>
-            <a
-              href="mailto:info@dronex.club"
-              className="text-blue-600 dark:text-blue-400 hover:underline"
-              aria-label="Email DroneX"
+        {/* Contact Cards */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-10 mb-16">
+          {/* Card */}
+          {[
+            {
+              icon: <Mail className="text-white w-6 h-6" />,
+              title: "Email",
+              content: (
+                <a
+                  href="mailto:drones@shivalikcollege.edu.in"
+                  className="text-blue-600 dark:text-blue-400 hover:underline break-all"
+                >
+                  drones@shivalikcollege.edu.in
+                </a>
+              ),
+              bg: "bg-gradient-to-br from-blue-500 to-indigo-600",
+            },
+            {
+              icon: <Phone className="text-white w-6 h-6" />,
+              title: "Phone",
+              content: (
+                <a
+                  href="tel:+918102492197"
+                  className="text-green-600 dark:text-green-400 hover:underline"
+                >
+                  +91 81024 92197
+                </a>
+              ),
+              bg: "bg-gradient-to-br from-green-500 to-emerald-600",
+            },
+            {
+              icon: <MapPin className="text-white w-6 h-6" />,
+              title: "Address",
+              content: (
+                <p className="text-gray-700 dark:text-gray-300">
+                  Shivalik College of Engineering,<br />
+                  Shimla Bypass Road, Dehradun,<br />
+                  Uttarakhand – 248197, India
+                </p>
+              ),
+              bg: "bg-gradient-to-br from-red-500 to-pink-600",
+            },
+          ].map((card, idx) => (
+            <div
+              key={idx}
+              className="bg-white/70 dark:bg-gray-800/70 backdrop-blur-md border border-gray-200 dark:border-gray-700 rounded-3xl shadow-xl p-6 text-center transition hover:scale-[1.02]"
             >
-              info@dronex.club
-            </a>
-          </div>
-
-          {/* Phone */}
-          <div className="bg-white dark:bg-gray-800 rounded-xl shadow-md p-6 text-center">
-            <Phone className="mx-auto mb-4 h-10 w-10 text-green-600" />
-            <h3 className="text-xl font-semibold text-gray-800 dark:text-white mb-2">Phone</h3>
-            <a
-              href="tel:+918102492197"
-              className="text-green-600 dark:text-green-400 hover:underline"
-              aria-label="Call DroneX"
-            >
-              +91 81024 92197
-            </a>
-          </div>
-
-          {/* Address */}
-          <div className="bg-white dark:bg-gray-800 rounded-xl shadow-md p-6 text-center">
-            <MapPin className="mx-auto mb-4 h-10 w-10 text-red-600" />
-            <h3 className="text-xl font-semibold text-gray-800 dark:text-white mb-2">Address</h3>
-            <p className="text-gray-600 dark:text-gray-300">
-              Shivalik College of Engineering, Shimla Bypass Road, Dehradun, Uttarakhand – 248197, India
-            </p>
-          </div>
+              <div
+                className={`${card.bg} rounded-full p-3 mx-auto mb-4 w-12 h-12 flex items-center justify-center shadow-md`}
+              >
+                {card.icon}
+              </div>
+              <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-2">
+                {card.title}
+              </h3>
+              <div className="text-base">{card.content}</div>
+            </div>
+          ))}
         </div>
 
-        {/* Google Map Embed */}
-        <div className="mb-12">
+        {/* Map */}
+        <div className="rounded-3xl overflow-hidden shadow-xl mb-16">
           <iframe
             title="DroneX Club Location"
-            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3454.973987107173!2d77.95205521543829!3d30.290844810794396!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390929b4ed3b7b89%3A0x293a6e4220c7f1f6!2sShivalik%20College%20of%20Engineering!5e0!3m2!1sen!2sin!4v1656251234567"
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3454.1005461746915!2d77.86815819999999!3d30.336507899999998!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390f2a7095b0a67b%3A0xc2f54efbde26299!2sShivalik%20College%2C%20Dehradun!5e0!3m2!1sen!2sin!4v1722249592216!5m2!1sen!2sin"
             width="100%"
-            height="450"
-            className="rounded-2xl border-none shadow-lg"
-            allowFullScreen
+            height="400"
+            className="border-0 w-full"
             loading="lazy"
+            allowFullScreen
           ></iframe>
         </div>
 
-        {/* Socials */}
-        <div className="flex justify-center space-x-6">
-          <a
-            href="https://instagram.com/dronexclub"
-            aria-label="Instagram"
-            className="text-gray-500 hover:text-pink-600 dark:hover:text-pink-400"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <i className="fab fa-instagram text-2xl"></i>
-          </a>
-          <a
-            href="https://twitter.com/dronexclub"
-            aria-label="Twitter"
-            className="text-gray-500 hover:text-blue-600 dark:hover:text-blue-400"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <i className="fab fa-twitter text-2xl"></i>
-          </a>
-          <a
-            href="https://linkedin.com/company/dronexclub"
-            aria-label="LinkedIn"
-            className="text-gray-500 hover:text-blue-800 dark:hover:text-blue-300"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <i className="fab fa-linkedin text-2xl"></i>
-          </a>
+        {/* Social Links */}
+        <div className="flex justify-center gap-6">
+          {[
+            {
+              href: "https://instagram.com/dronexclub",
+              icon: <Instagram className="w-6 h-6" />,
+              color: "hover:text-pink-500",
+            },
+            {
+              href: "https://twitter.com/dronexclub",
+              icon: <Twitter className="w-6 h-6" />,
+              color: "hover:text-blue-500",
+            },
+            {
+              href: "https://linkedin.com/company/dronexclub",
+              icon: <Linkedin className="w-6 h-6" />,
+              color: "hover:text-blue-700",
+            },
+          ].map((social, i) => (
+            <a
+              key={i}
+              href={social.href}
+              target="_blank"
+              rel="noopener noreferrer"
+              className={`text-gray-500 transition ${social.color}`}
+            >
+              {social.icon}
+            </a>
+          ))}
         </div>
       </div>
     </section>

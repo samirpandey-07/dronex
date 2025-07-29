@@ -55,7 +55,7 @@ const Navbar: React.FC = () => {
               </span>
             </div>
             <span className="text-xl font-bold text-gray-900 dark:text-white">
-              Drones Club
+              DroneX Club
             </span>
           </button>
 

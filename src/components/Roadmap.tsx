@@ -31,7 +31,7 @@ const Roadmap: React.FC = () => {
     {
       id: 4,
       title: 'Programmable Drone Build',
-      description: 'Build a programmable quadcopter from scratch under the mentorship of Er. Ashish Kumar Gupta (ERP HOD).',
+      description: 'Build a programmable quadcopter from scratch under the mentorship of Er. Ashish Kumar Gupta (Electronics dept.).',
       date: 'October 2025',
       status: 'planned',
       category: 'development',

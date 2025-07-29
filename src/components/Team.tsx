@@ -23,16 +23,16 @@ const teamMembers: TeamMember[] = [
     role: 'President',
     bio: 'Leading the club with vision and energy.',
     image: sonuPic,
-    email: 'sonu@example.com',
-    linkedin: 'https://linkedin.com/in/sonukumar',
+    email: 'Sonu9523287513@gmail.com',
+    linkedin: 'https://www.linkedin.com/in/sonu-kumar-147881283/',
   },
   {
     name: 'Shreshth Upreti',
     role: 'Vice President',
     bio: 'Strategizing and assisting in operations.',
     image: shreshthPic,
-    email: 'shreshth@example.com',
-    linkedin: 'https://linkedin.com/in/shreshthupreti',
+    email: 'Upretishreshth@gmail.com',
+    linkedin: 'https://www.linkedin.com/in/shreshth-upreti4747/',
   },
   {
     name: 'Samir Pandey',
@@ -40,15 +40,15 @@ const teamMembers: TeamMember[] = [
     bio: 'Manages club funds and resources.',
     image: samirPic,
     email: 'pamdeysamir@gmail.com',
-    linkedin: 'https://linkedin.com/in/samir-pandey17',
+    linkedin: 'https://www.linkedin.com/in/samirpandey201/',
   },
   {
     name: 'Saurav Kumar',
     role: 'PR & Media Head',
     bio: 'Handles outreach and public image.',
     image: sauravPic,
-    email: 'saurav@example.com',
-    linkedin: 'https://linkedin.com/in/sauravkumar',
+    email: 'sauravverma523@gmail.com',
+    linkedin: 'https://www.linkedin.com/in/saurav-verma-809406329/',
   },
   {
     name: 'Shubham Kumar',
@@ -56,7 +56,7 @@ const teamMembers: TeamMember[] = [
     bio: 'Oversees technical development and projects.',
     image: shubhamPic,
     email: 'shubham@example.com',
-    linkedin: 'https://linkedin.com/in/shubhamkumar',
+    linkedin: 'https://www.linkedin.com/in/shubham-shudhanshu-72b926350/',
   },
   {
     name: 'Khushi Thapliyal',
@@ -72,15 +72,15 @@ const teamMembers: TeamMember[] = [
     bio: 'Ensures smooth execution of all activities.',
     image: tabassumPic,
     email: 'tabassum@example.com',
-    linkedin: 'https://linkedin.com/in/tabassumlatif',
+    linkedin: 'https://www.linkedin.com/in/tabassum-perveen-1b4795355/',
   },
   {
     name: 'Shubhankar Dhara',
     role: 'Mechanical Head',
     bio: 'Expert in drone mechanics and structures.',
     image: shubhankarPic,
-    email: 'shubhankar@example.com',
-    linkedin: 'https://linkedin.com/in/shubhankardhara',
+    email: 'jh20354060604@gmail.com',
+    linkedin: 'https://www.linkedin.com/in/subhankar-dhara-a760a4350/',
   },
 ];
 
@@ -94,7 +94,7 @@ const mentors: TeamMember[] = [
   },
   {
     name: 'Mr. Ashish Kumar Gupta',
-    role: 'Mentor (ERP Head)',
+    role: 'Mentor (Electronics dept.)',
     bio: 'Mentoring drone development and innovation.',
     image: '',
     email: 'ashish.gupta@shivalikcollege.edu.in',
@@ -104,7 +104,7 @@ const mentors: TeamMember[] = [
     role: 'Mentor',
     bio: 'Supports with technical and management expertise.',
     image: '',
-    email: 'abhinav.narain@shivalikcollege.edu.in',
+    email: 'Abhinav.srivastava@shivalikcollege.edu.in',
   },
 ];
 
