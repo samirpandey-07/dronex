@@ -1,60 +1,42 @@
-import React from 'react';
-import { ChevronDown } from 'lucide-react';
-import backgroundPicture from '../assets/hero-bg.jpg';
+import React from "react";
+import heroImg from "../assets/hero-bg.jpg"; // change path as per your project
 
-const Hero: React.FC = () => {
-  const scrollToAbout = () => {
-    const element = document.querySelector('#about');
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
-    }
-  };
-
+const HeroSection = () => {
   return (
-    <section
-      id="home"
-      className="relative min-h-screen flex items-center justify-center overflow-hidden"
-      aria-label="DroneX Hero Section"
-    >
+    <div className="relative h-screen w-full bg-black text-white overflow-hidden">
       {/* Background Image */}
       <div
-        className="absolute inset-0 bg-cover bg-center"
-        style={{ backgroundImage: `url(${backgroundPicture})` }}
-        aria-hidden="true"
+        className="absolute inset-0 bg-cover bg-center opacity-60"
+        style={{ backgroundImage: `url(${heroImg})` }}
       />
 
-      {/* Optional Overlay for better text readability */}
-      <div className="absolute inset-0 bg-black/50" aria-hidden="true" />
+      {/* Gradient Overlay */}
+      <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-black/30 to-black/90" />
 
-      {/* Main Content */}
-      <div className="relative z-10 text-center px-6 sm:px-10 lg:px-16 max-w-6xl mx-auto">
-        <h1 className="text-5xl md:text-7xl font-extrabold text-white leading-tight tracking-tight drop-shadow-lg">
-          Welcome to <span className="text-blue-500">DroneX</span>
+      {/* Content */}
+      <div className="relative z-10 flex flex-col justify-center items-center h-full px-4 text-center">
+        <h1 className="text-4xl md:text-6xl font-extrabold tracking-tight leading-tight drop-shadow-lg">
+          DroneX Club
         </h1>
-        <p className="mt-6 text-lg md:text-2xl text-gray-200 font-light tracking-wide drop-shadow-md max-w-4xl mx-auto">
-          Igniting Innovation, Building the Future of Drone Technology.
+        <p className="mt-4 text-lg md:text-2xl font-medium max-w-2xl text-gray-200">
+          Empowering Future with Drones. Explore, build, and fly with us.
         </p>
 
-        <a
-          href="https://forms.gle/iG6LmZ1JufbFEPCx6"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="mt-10 inline-block px-10 py-4 bg-blue-600 hover:bg-blue-700 text-white text-lg font-semibold rounded-full transition-transform duration-300 transform hover:scale-105 shadow-lg hover:shadow-blue-400/40"
-        >
-          Join DroneX
-        </a>
-      </div>
+        <div className="mt-8 flex gap-4">
+          <button className="bg-white text-black px-6 py-3 rounded-2xl font-semibold hover:bg-gray-200 transition">
+            Explore More
+          </button>
+          <button className="bg-transparent border border-white px-6 py-3 rounded-2xl hover:bg-white hover:text-black transition">
+            Join the Club
+          </button>
+        </div>
 
-      {/* Scroll Indicator */}
-      <button
-        onClick={scrollToAbout}
-        aria-label="Scroll to About Section"
-        className="absolute bottom-8 left-1/2 transform -translate-x-1/2 text-white/70 hover:text-white transition-colors duration-300 animate-bounce"
-      >
-        <ChevronDown className="w-8 h-8" />
-      </button>
-    </section>
+        <p className="mt-6 text-sm text-gray-400 italic">
+          Registration not started yet
+        </p>
+      </div>
+    </div>
   );
 };
 
-export default Hero;
+export default HeroSection;
