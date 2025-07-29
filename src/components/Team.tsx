@@ -8,6 +8,10 @@ import khushiPic from '../assets/khushipic.jpg';
 import shubhankarPic from '../assets/shubhankarpic.jpg';
 import shubhamPic from '../assets/shubhampic.jpg';
 
+import abhishekJhaPic from '../assets/abhishekjha.jpg';
+import ashishGuptaPic from '../assets/ashishgupta.jpg';
+import abhinavNarainPic from '../assets/abhinavnarain.jpg';
+
 interface TeamMember {
   name: string;
   role: string;
@@ -89,21 +93,21 @@ const mentors: TeamMember[] = [
     name: 'Dr. Abhishek Jha',
     role: 'Club Coordinator',
     bio: 'Guiding and supervising club operations.',
-    image: '',
+    image: abhishekJhaPic,
     email: 'abhishek.jha@shivalikcollege.edu.in',
   },
   {
     name: 'Mr. Ashish Kumar Gupta',
     role: 'Mentor (Electronics dept.)',
     bio: 'Mentoring drone development and innovation.',
-    image: '',
+    image: ashishGuptaPic,
     email: 'ashish.gupta@shivalikcollege.edu.in',
   },
   {
     name: 'Mr. Abhinav Narain',
     role: 'Mentor',
     bio: 'Supports with technical and management expertise.',
-    image: '',
+    image: abhinavNarainPic,
     email: 'Abhinav.srivastava@shivalikcollege.edu.in',
   },
 ];
@@ -119,25 +123,29 @@ const Team: React.FC = () => {
               key={index}
               className="flex flex-col items-center bg-white rounded-2xl p-6 shadow-xl transition-transform hover:scale-105 duration-300"
             >
-              {member.image && (
-                <img
-                  src={member.image}
-                  alt={member.name}
-                  className="w-32 h-32 object-cover rounded-full border-4 border-white shadow-lg mb-4"
-                />
-              )}
+              <img
+                src={member.image}
+                alt={member.name}
+                className="w-32 h-32 object-cover rounded-full border-4 border-white shadow-lg mb-4"
+              />
               <h3 className="text-xl font-semibold text-gray-800">{member.name}</h3>
               <p className="text-sm text-blue-600 font-medium">{member.role}</p>
               <p className="text-gray-500 text-sm mt-2 text-center">{member.bio}</p>
               <div className="mt-2 space-y-1 text-sm text-gray-600">
                 {member.email && (
                   <p>
-                    📧 <a href={`mailto:${member.email}`} className="text-blue-500 hover:underline">{member.email}</a>
+                    📧{' '}
+                    <a href={`mailto:${member.email}`} className="text-blue-500 hover:underline">
+                      {member.email}
+                    </a>
                   </p>
                 )}
                 {member.linkedin && (
                   <p>
-                    🔗 <a href={member.linkedin} target="_blank" className="text-blue-500 hover:underline">LinkedIn</a>
+                    🔗{' '}
+                    <a href={member.linkedin} target="_blank" rel="noopener noreferrer" className="text-blue-500 hover:underline">
+                      LinkedIn
+                    </a>
                   </p>
                 )}
               </div>
@@ -145,18 +153,28 @@ const Team: React.FC = () => {
           ))}
         </div>
 
-        {/* Mentors and Coordinators Section */}
-        <div className="mt-20 text-left">
+        {/* Mentors Section */}
+        <div className="mt-20">
           <h3 className="text-3xl font-bold text-gray-800 mb-6 text-center">Coordinators & Mentors</h3>
-          <div className="grid gap-6 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+          <div className="grid gap-10 sm:grid-cols-2 md:grid-cols-3">
             {mentors.map((mentor, idx) => (
-              <div key={idx} className="bg-white rounded-2xl p-6 shadow-md hover:shadow-lg transition-shadow">
+              <div key={idx} className="flex flex-col items-center bg-white rounded-2xl p-6 shadow-lg hover:shadow-xl transition-shadow">
+                {mentor.image && (
+                  <img
+                    src={mentor.image}
+                    alt={mentor.name}
+                    className="w-24 h-24 object-cover rounded-full border-4 border-blue-500 shadow-md mb-4"
+                  />
+                )}
                 <h4 className="text-xl font-semibold text-gray-800">{mentor.name}</h4>
                 <p className="text-sm text-blue-600 font-medium">{mentor.role}</p>
-                <p className="text-gray-500 mt-2">{mentor.bio}</p>
+                <p className="text-gray-500 mt-2 text-sm text-center">{mentor.bio}</p>
                 {mentor.email && (
                   <p className="mt-2 text-sm text-gray-600">
-                    📧 <a href={`mailto:${mentor.email}`} className="text-blue-500 hover:underline">{mentor.email}</a>
+                    📧{' '}
+                    <a href={`mailto:${mentor.email}`} className="text-blue-500 hover:underline">
+                      {mentor.email}
+                    </a>
                   </p>
                 )}
               </div>

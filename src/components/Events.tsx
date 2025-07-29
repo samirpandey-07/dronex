@@ -6,37 +6,37 @@ import { Event } from '../types';
 const events: Event[] = [
   {
     id: 1,
-    title: 'Drone Racing Workshop',
-    date: '2024-03-15',
-    location: 'Engineering Building, Room 204',
-    description: 'Learn the fundamentals of FPV drone racing, from building to flying. All skill levels welcome!',
+    title: 'Beginner Drone Assembly Workshop',
+    date: '2024-08-15',
+    location: 'Innovation Hub, Block C',
+    description: 'Kickstart your drone journey with our hands-on workshop covering basic assembly, components, and safety protocols. No prior experience needed!',
     registrationLink: '#register',
     image: 'https://images.pexels.com/photos/1034662/pexels-photo-1034662.jpeg?auto=compress&cs=tinysrgb&w=600',
   },
   {
     id: 2,
-    title: 'Regional Competition Qualifier',
-    date: '2024-03-28',
-    location: 'University Sports Complex',
-    description: 'Compete for a spot on our championship team. Categories for both beginners and advanced pilots.',
+    title: 'Line Follower Drone Challenge',
+    date: '2024-09-05',
+    location: 'College Auditorium',
+    description: 'Put your drone skills to the test in a fun competition focused on line following and basic autonomous navigation.',
     registrationLink: '#register',
     image: 'https://images.pexels.com/photos/442587/pexels-photo-442587.jpeg?auto=compress&cs=tinysrgb&w=600',
   },
   {
     id: 3,
-    title: 'AI & Autonomous Systems Seminar',
-    date: '2024-04-10',
-    location: 'Virtual Event',
-    description: 'Industry experts discuss the latest in autonomous drone technology and career opportunities.',
+    title: 'Talk Session: Careers in Drones & Robotics',
+    date: '2024-09-18',
+    location: 'Seminar Hall, Block A',
+    description: 'Join us for an interactive talk with industry professionals exploring career paths in drone technology, AI, and robotics.',
     registrationLink: '#register',
     image: 'https://images.pexels.com/photos/1034653/pexels-photo-1034653.jpeg?auto=compress&cs=tinysrgb&w=600',
   },
   {
     id: 4,
-    title: 'National Collegiate Championship',
-    date: '2024-05-18',
-    location: 'Las Vegas, Nevada',
-    description: 'The premier collegiate drone competition featuring racing, freestyle, and technical challenges.',
+    title: 'Tech Fest Drone Demo & Display',
+    date: '2024-10-10',
+    location: 'Main Ground - Shivalik Campus',
+    description: 'Experience our drones in action as the DroneX Club showcases flight demos, tech models, and innovations during the college tech fest.',
     registrationLink: '#register',
     image: 'https://images.pexels.com/photos/724994/pexels-photo-724994.jpeg?auto=compress&cs=tinysrgb&w=600',
   },
@@ -52,10 +52,10 @@ const Events: React.FC = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
           <h2 className="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-6">
-            Events & Competitions
+            Events & Workshops
           </h2>
           <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
-            Join us for workshops, competitions, and networking events that will take your drone skills to the next level.
+            Participate in hands-on workshops, fun challenges, and expert sessions designed to grow your drone knowledge step by step.
           </p>
         </div>
 

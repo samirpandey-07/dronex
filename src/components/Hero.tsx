@@ -1,5 +1,6 @@
 import React from 'react';
 import { ChevronDown } from 'lucide-react';
+import backgroundPicture from '../assets/hero-bg.jpg';
 
 const Hero: React.FC = () => {
   const scrollToAbout = () => {
@@ -17,35 +18,31 @@ const Hero: React.FC = () => {
     >
       {/* Background Image */}
       <div
-        className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-        style={{
-          backgroundImage:
-            "url('https://images.pexels.com/photos/3862132/pexels-photo-3862132.jpeg?auto=compress&cs=tinysrgb&w=1920&h=1080&fit=crop')",
-        }}
+        className="absolute inset-0 bg-cover bg-center"
+        style={{ backgroundImage: `url(${backgroundPicture})` }}
         aria-hidden="true"
       />
 
-      {/* Dark Overlay */}
-      <div className="absolute inset-0 bg-black/60" aria-hidden="true" />
+      {/* Optional Overlay for better text readability */}
+      <div className="absolute inset-0 bg-black/50" aria-hidden="true" />
 
       {/* Main Content */}
-      <div className="relative z-10 text-center px-6 sm:px-10 lg:px-12 max-w-6xl mx-auto">
-        <h1 className="text-5xl md:text-7xl lg:text-8xl font-extrabold text-white mb-6 leading-tight tracking-tight drop-shadow-lg">
+      <div className="relative z-10 text-center px-6 sm:px-10 lg:px-16 max-w-6xl mx-auto">
+        <h1 className="text-5xl md:text-7xl font-extrabold text-white leading-tight tracking-tight drop-shadow-lg">
           Welcome to <span className="text-blue-500">DroneX</span>
         </h1>
-        <p className="text-xl md:text-2xl lg:text-3xl text-gray-200 font-light mb-10 tracking-wide max-w-4xl mx-auto drop-shadow-md">
+        <p className="mt-6 text-lg md:text-2xl text-gray-200 font-light tracking-wide drop-shadow-md max-w-4xl mx-auto">
           Igniting Innovation, Building the Future of Drone Technology.
         </p>
 
         <a
-  href="https://forms.gle/iG6LmZ1JufbFEPCx6"
-  target="_blank"
-  rel="noopener noreferrer"
-  className="inline-block px-10 py-4 bg-blue-600 hover:bg-blue-700 text-white text-lg font-semibold rounded-full transition-transform duration-300 transform hover:scale-105 shadow-lg hover:shadow-blue-400/30"
->
-  Join DroneX
-</a>
-
+          href="https://forms.gle/iG6LmZ1JufbFEPCx6"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="mt-10 inline-block px-10 py-4 bg-blue-600 hover:bg-blue-700 text-white text-lg font-semibold rounded-full transition-transform duration-300 transform hover:scale-105 shadow-lg hover:shadow-blue-400/40"
+        >
+          Join DroneX
+        </a>
       </div>
 
       {/* Scroll Indicator */}
