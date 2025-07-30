@@ -6,43 +6,44 @@ import { Event } from '../types';
 const events: Event[] = [
   {
     id: 1,
-    title: 'Beginner Drone Assembly Workshop',
-    date: '2024-08-15',
+    title: 'Drone Basics Bootcamp',
+    date: '',
     location: 'Innovation Hub, Block C',
-    description: 'Kickstart your drone journey with our hands-on workshop covering basic assembly, components, and safety protocols. No prior experience needed!',
-    registrationLink: '#register',
+    description: 'Beginner-friendly session on drone fundamentals: design, components, and safety. Perfect for curious minds!',
+    registrationLink: '#',
     image: 'https://images.pexels.com/photos/1034662/pexels-photo-1034662.jpeg?auto=compress&cs=tinysrgb&w=600',
   },
   {
     id: 2,
-    title: 'Line Follower Drone Challenge',
-    date: '2024-09-05',
+    title: 'Line Tracking Drone Challenge',
+    date: '',
     location: 'College Auditorium',
-    description: 'Put your drone skills to the test in a fun competition focused on line following and basic autonomous navigation.',
-    registrationLink: '#register',
+    description: 'Test your drone’s precision by navigating through a custom-built track using line-following logic. Teams encouraged!',
+    registrationLink: '#',
     image: 'https://images.pexels.com/photos/442587/pexels-photo-442587.jpeg?auto=compress&cs=tinysrgb&w=600',
   },
   {
     id: 3,
-    title: 'Talk Session: Careers in Drones & Robotics',
-    date: '2024-09-18',
+    title: 'Talk: Future in Drone Tech & Robotics',
+    date: '',
     location: 'Seminar Hall, Block A',
-    description: 'Join us for an interactive talk with industry professionals exploring career paths in drone technology, AI, and robotics.',
-    registrationLink: '#register',
+    description: 'An exclusive interaction with drone and robotics experts exploring real-world career opportunities and innovations.',
+    registrationLink: '#',
     image: 'https://images.pexels.com/photos/1034653/pexels-photo-1034653.jpeg?auto=compress&cs=tinysrgb&w=600',
   },
   {
     id: 4,
-    title: 'Tech Fest Drone Demo & Display',
-    date: '2024-10-10',
+    title: 'Tech Fest DroneX Showcase',
+    date: '',
     location: 'Main Ground - Shivalik Campus',
-    description: 'Experience our drones in action as the DroneX Club showcases flight demos, tech models, and innovations during the college tech fest.',
-    registrationLink: '#register',
+    description: 'Witness DroneX projects in action: stunning flight demos, models, and exciting innovation exhibits at Tech Fest.',
+    registrationLink: '#',
     image: 'https://images.pexels.com/photos/724994/pexels-photo-724994.jpeg?auto=compress&cs=tinysrgb&w=600',
   },
 ];
 
 const formatDate = (dateStr: string) => {
+  if (!dateStr) return 'Date to be announced';
   return new Intl.DateTimeFormat('en-US', { dateStyle: 'long' }).format(new Date(dateStr));
 };
 
@@ -52,10 +53,10 @@ const Events: React.FC = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
           <h2 className="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-6">
-            Events & Workshops
+            Upcoming Events & Workshops
           </h2>
           <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
-            Participate in hands-on workshops, fun challenges, and expert sessions designed to grow your drone knowledge step by step.
+            Explore our curated lineup of technical workshops, challenges, and talks designed to elevate your drone innovation journey.
           </p>
         </div>
 
@@ -96,7 +97,7 @@ const Events: React.FC = () => {
                   aria-label={`Register for ${event.title}`}
                   className="inline-flex items-center space-x-2 px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg transition-colors duration-200"
                 >
-                  <span>Register Now</span>
+                  <span>Registration Opening Soon</span>
                   <ExternalLink className="w-4 h-4" />
                 </a>
               </div>
@@ -106,7 +107,7 @@ const Events: React.FC = () => {
 
         <div className="text-center mt-12">
           <p className="text-gray-600 dark:text-gray-300 mb-6">
-            Want to stay updated on all our events?
+            Want to stay informed about DroneX events?
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <input

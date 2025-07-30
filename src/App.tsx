@@ -27,7 +27,7 @@ function App() {
         <Roadmap />
         <Gallery />
         <Events />
-         <JoinForm />
+         
         <FloatingJoinButton />
         <Contact />
         <Footer />
