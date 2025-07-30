@@ -71,7 +71,7 @@ const teamMembers: TeamMember[] = [
     linkedin: 'https://linkedin.com/in/khushithapliyal',
   },
   {
-    name: 'Tabassum Latif',
+    name: 'Tabassum Perveen',
     role: 'Event Coordinator',
     bio: 'Ensures smooth execution of all activities.',
     image: tabassumPic,
