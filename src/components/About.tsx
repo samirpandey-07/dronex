@@ -1,5 +1,6 @@
 import React from 'react';
 import { Target, Lightbulb, Trophy } from 'lucide-react';
+import frontimg from '../assets/front.jpg';
 
 const About: React.FC = () => {
   return (
@@ -30,7 +31,7 @@ const About: React.FC = () => {
           </div>
           <div className="relative">
             <img
-              src="https://images.pexels.com/photos/3862132/pexels-photo-3862132.jpeg?auto=compress&cs=tinysrgb&w=800"
+              src={frontimg}
               alt="Drone in flight"
               className="rounded-2xl shadow-xl"
             />
