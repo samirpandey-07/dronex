@@ -26,7 +26,7 @@ const Footer: React.FC = () => {
           {/* Social Media Icons */}
           <div className="flex justify-center space-x-6 mb-4">
             <a
-              href="https://instagram.com"
+              href="https://www.instagram.com/droneclubshivalik?igsh=MWkwaDVsdXBoeTJ3ag=="
               target="_blank"
               rel="noopener noreferrer"
               className="hover:text-pink-400 transition"
@@ -42,7 +42,7 @@ const Footer: React.FC = () => {
               <Linkedin className="w-5 h-5" />
             </a>
             <a
-              href="mailto:droneX.club@gmail.com"
+              href="mailto:drones@shivalivakcollege.edu.in"
               className="hover:text-red-400 transition"
             >
               <Mail className="w-5 h-5" />

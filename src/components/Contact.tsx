@@ -99,38 +99,40 @@ const Contact: React.FC = () => {
         </div>
 
         {/* Social Links */}
-        <div className="flex justify-center gap-6">
-          {[
-            {
-              href: "https://instagram.com/dronexclub",
-              icon: <Instagram className="w-6 h-6" />,
-              color: "hover:text-pink-500",
-            },
-            {
-              href: "https://twitter.com/dronexclub",
-              icon: <Twitter className="w-6 h-6" />,
-              color: "hover:text-blue-500",
-            },
-            {
-              href: "https://linkedin.com/company/dronexclub",
-              icon: <Linkedin className="w-6 h-6" />,
-              color: "hover:text-blue-700",
-            },
-          ].map((social, i) => (
-            <a
-              key={i}
-              href={social.href}
-              target="_blank"
-              rel="noopener noreferrer"
-              className={`text-gray-500 transition ${social.color}`}
-            >
-              {social.icon}
-            </a>
-          ))}
-        </div>
+<div className="flex justify-center gap-6">
+  {[
+    {
+      href: "https://www.instagram.com/droneclubshivalik?igsh=MWkwaDVsdXBoeTJ3ag==",
+      icon: <Instagram className="w-6 h-6" />,
+      color: "hover:text-pink-500",
+    },
+    {
+      href: "mailto:drones@shivalikcollege.edu.in",
+      icon: <Mail className="w-6 h-6" />,
+      color: "hover:text-red-600",
+    },
+    {
+      href: "https://linkedin.com/company/dronexclub",
+      icon: <Linkedin className="w-6 h-6" />,
+      color: "hover:text-blue-700",
+    },
+  ].map((social, i) => (
+    <a
+      key={i}
+      href={social.href}
+      target="_blank"
+      rel="noopener noreferrer"
+      className={`text-gray-500 transition ${social.color}`}
+    >
+      {social.icon}
+    </a>
+  ))}
+</div>
+
       </div>
     </section>
   );
 };
 
 export default Contact;
+
