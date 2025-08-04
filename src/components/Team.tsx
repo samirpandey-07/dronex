@@ -55,7 +55,7 @@ const teamMembers: TeamMember[] = [
     linkedin: 'https://www.linkedin.com/in/saurav-verma-809406329/',
   },
   {
-    name: 'Shubham Kumar',
+    name: 'Shubham Raj',
     role: 'Technical Head',
     bio: 'Oversees technical development and projects.',
     image: shubhamPic,
