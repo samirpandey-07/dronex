@@ -59,7 +59,7 @@ const teamMembers: TeamMember[] = [
     role: 'Technical Head',
     bio: 'Oversees technical development and projects.',
     image: shubhamPic,
-    email: 'shubham@example.com',
+    email: 'kundankumardga9097@gmail.com',
     linkedin: 'https://www.linkedin.com/in/shubham-shudhanshu-72b926350/',
   },
   {
@@ -67,7 +67,7 @@ const teamMembers: TeamMember[] = [
     role: 'Event Coordinator',
     bio: 'Coordinates workshops and events.',
     image: khushiPic,
-    email: 'khushi@example.com',
+    email: 'thapliyalkhushi3@gmail.com',
     linkedin: 'https://linkedin.com/in/khushithapliyal',
   },
   {
@@ -75,7 +75,7 @@ const teamMembers: TeamMember[] = [
     role: 'Event Coordinator',
     bio: 'Ensures smooth execution of all activities.',
     image: tabassumPic,
-    email: 'tabassum@example.com',
+    email: 'perveentabassum21@gmail.com',
     linkedin: 'https://www.linkedin.com/in/tabassum-perveen-1b4795355/',
   },
   {
