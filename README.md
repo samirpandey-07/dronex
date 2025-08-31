@@ -67,13 +67,13 @@ If you’d like to improve DroneX, follow these steps:
 
 📸 **Screenshots:**
 
-![Homepage](./assets/demo-home.png)  
+![Homepage](../assets/demo-home.png)  
 *DroneX homepage showcasing the club’s vision and latest projects*
 
-![Team Section](./assets/demo-team.png)  
+![Team Section](../assets/demo-team.png)  
 *Meet the DroneX core team and mentors*
 
-![Projects Showcase](./assets/demo-projects.png)  
+![Projects Showcase](../assets/demo-projects.png)  
 *Ongoing drone prototypes and research work*
 ## 🚀 Deployment
 
