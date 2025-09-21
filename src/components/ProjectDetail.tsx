@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useMemo, useCallback, useRef } from "react";
-
 import { useParams, Link, useNavigate } from "react-router-dom";
 import {
   Sun,
@@ -40,7 +39,6 @@ import {
   sauravPic, 
   subhankarPic 
 } from "../assets";
-
 
 /**
  * ProjectDetail.tsx - Upgraded interactive version
@@ -127,6 +125,25 @@ export default function ProjectDetail(): JSX.Element {
   const [copied, setCopied] = useState(false);
   const [progress, setProgress] = useState(0);
   const pageRef = useRef<HTMLDivElement | null>(null);
+
+  // Helper: scroll to anchor in page
+  const scrollToAnchor = useCallback((hash: string) => {
+    const id = hash.replace("#", "");
+    const el = document.getElementById(id);
+    if (el) {
+      el.scrollIntoView({ behavior: "smooth", block: "start" });
+    } else {
+      // fallback: small scroll
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+    setMobileMenuOpen(false);
+  }, []);
+
+  // Mobile menu navigation handler
+  const handleMobileNav = useCallback((action: () => void) => {
+    action();
+    setMobileMenuOpen(false);
+  }, []);
 
   useEffect(() => {
     const onScroll = () => {
@@ -544,17 +561,42 @@ export default function ProjectDetail(): JSX.Element {
                 <button onClick={toggleTheme} className="p-2 rounded-lg bg-gray-100 dark:bg-gray-800">
                   {isDark ? <Sun className="w-5 h-5 text-yellow-400" /> : <Moon className="w-5 h-5 text-gray-600" />}
                 </button>
-                <button onClick={() => setMobileMenuOpen(!mobileMenuOpen)} className="p-2 rounded-lg bg-gray-100 dark:bg-gray-800" aria-label="Toggle menu">
+                <button onClick={() => setMobileMenuOpen(!mobileMenuOpen)} className="p-2 rounded-lg bg-gray-100 dark:bg-gray-800 mobile-menu-button" aria-label="Toggle menu" aria-expanded={mobileMenuOpen}>
                   {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
                 </button>
               </div>
             </div>
+            
+            {/* Mobile Menu */}
             {mobileMenuOpen && (
-              <div className="md:hidden mt-2 bg-white dark:bg-gray-900 px-4 py-3 rounded-lg shadow">
-                <button onClick={() => navigate("/")} className="block w-full text-left py-2">Home</button>
-                <button onClick={() => scrollToAnchor("#team")} className="block w-full text-left py-2">Team</button>
-                <button onClick={() => scrollToAnchor("#roadmap")} className="block w-full text-left py-2">Roadmap</button>
-                <a href="https://shivalikcollege.edu.in" target="_blank" rel="noreferrer" className="block w-full text-left py-2">College</a>
+              <div className="mobile-menu-container md:hidden mt-2 bg-white dark:bg-gray-900 px-4 py-3 rounded-lg shadow">
+                <button 
+                  onClick={() => handleMobileNav(() => navigate("/"))} 
+                  className="block w-full text-left py-2 text-gray-700 dark:text-gray-300 hover:text-indigo-600 transition"
+                >
+                  Home
+                </button>
+                <button 
+                  onClick={() => handleMobileNav(() => scrollToAnchor("#team"))} 
+                  className="block w-full text-left py-2 text-gray-700 dark:text-gray-300 hover:text-indigo-600 transition"
+                >
+                  Team
+                </button>
+                <button 
+                  onClick={() => handleMobileNav(() => scrollToAnchor("#roadmap"))} 
+                  className="block w-full text-left py-2 text-gray-700 dark:text-gray-300 hover:text-indigo-600 transition"
+                >
+                  Roadmap
+                </button>
+                <a 
+                  href="https://shivalikcollege.edu.in" 
+                  target="_blank" 
+                  rel="noreferrer" 
+                  className="block w-full text-left py-2 text-gray-700 dark:text-gray-300 hover:text-indigo-600 transition"
+                  onClick={() => setMobileMenuOpen(false)}
+                >
+                  College Site
+                </a>
               </div>
             )}
           </div>
@@ -685,8 +727,8 @@ export default function ProjectDetail(): JSX.Element {
               </motion.div>
             )}
 
-            Gallery
-            {/* {activeTab === "gallery" && (
+            {/* Gallery */}
+            {activeTab === "gallery" && (
               <motion.div initial="hidden" animate="visible" variants={fadeIn as any}>
                 <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-md p-6">
                   <h3 className="text-2xl font-bold mb-6 flex items-center gap-3"><Camera className="w-6 h-6 text-indigo-600" /> Media Gallery</h3>
@@ -702,7 +744,7 @@ export default function ProjectDetail(): JSX.Element {
                   </div>
                 </div>
               </motion.div>
-            )} */}
+            )}
 
             {/* Roadmap / Timeline */}
             {activeTab === "timeline" && project.timeline && (
@@ -929,17 +971,4 @@ export default function ProjectDetail(): JSX.Element {
       `}</style>
     </div>
   );
-
-  // helper: scroll to anchor in page
-  function scrollToAnchor(hash: string) {
-    const id = hash.replace("#", "");
-    const el = document.getElementById(id);
-    if (el) {
-      el.scrollIntoView({ behavior: "smooth", block: "start" });
-    } else {
-      // fallback: small scroll
-      window.scrollTo({ top: 0, behavior: "smooth" });
-    }
-    setMobileMenuOpen(false);
-  }
 }

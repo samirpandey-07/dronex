@@ -1,6 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { Link, useNavigate } from "react-router-dom";
-
 import { Sun, Moon, Menu, X } from 'lucide-react';
 import { useTheme } from '../contexts/ThemeContext';
 
@@ -20,7 +18,7 @@ const Navbar: React.FC = () => {
     { href: '#about', label: 'About' },
     { href: '#team', label: 'Team' },
     { href: '#roadmap', label: 'Roadmap' },
-    { href: '/projects/drishti', label: 'Projects', type: 'route' },
+    { href: '#project', label: 'Project' },
     { href: '#gallery', label: 'Gallery' },
     { href: '#events', label: 'Events' },
     { href: '#contact', label: 'Contact' },
@@ -58,25 +56,15 @@ const Navbar: React.FC = () => {
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center gap-6">
-            {navItems.map((item) =>
-  item.type === "anchor" ? (
-    <button
-      key={item.href}
-      onClick={() => scrollToSection(item.href)}
-      className="text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition font-medium"
-    >
-      {item.label}
-    </button>
-  ) : (
-    <Link
-      key={item.href}
-      to={item.href}
-      className="text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition font-medium"
-    >
-      {item.label}
-    </Link>
-  )
-)}
+            {navItems.map((item) => (
+              <button
+                key={item.href}
+                onClick={() => scrollToSection(item.href)}
+                className="text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition font-medium"
+              >
+                {item.label}
+              </button>
+            ))}
 
             {/* College Website Link */}
             <a

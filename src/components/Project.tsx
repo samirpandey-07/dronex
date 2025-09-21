@@ -14,7 +14,8 @@ function ProjectCard({ title, description, extra, image, alt, link }: ProjectPro
   const [isHovered, setIsHovered] = useState(false);
 
   return (
-    <div
+    <div 
+      id="project"
       className="group bg-white dark:bg-gray-900 p-6 rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-3 flex flex-col h-full"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
