@@ -223,6 +223,13 @@ export default function ProjectDetail(): JSX.Element {
     email: "pamdeysamir@gmail.com",
     linkedin: "https://www.linkedin.com/in/samir-pandey",
   },
+  {
+    name: "Saurav Kumar",
+    role: "Workshop Head & Hardware Lead",
+    avatar: sauravPic,  // Replace with actual image source
+    bio: "Oversees all hardware-related tasks, including prototyping, assembly, and testing of hardware components.",
+    email: "sauravverma523@gmail.com",
+  },
    {
     name: "Aradhya Tyagi",
     role: "Researcher",
@@ -238,13 +245,7 @@ export default function ProjectDetail(): JSX.Element {
     email: "thapliyalkhushi3@gmail.com",
   },
  
-  {
-    name: "Saurav Kumar",
-    role: "Workshop Head & Hardware Lead",
-    avatar: sauravPic,  // Replace with actual image source
-    bio: "Oversees all hardware-related tasks, including prototyping, assembly, and testing of hardware components.",
-    email: "sauravverma523@gmail.com",
-  },
+  
   {
     name: "Subhankar Dhara",
     role: "Mechanical Head",
