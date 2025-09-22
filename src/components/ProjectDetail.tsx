@@ -41,15 +41,10 @@ import {
 } from "../assets";
 
 /**
- * ProjectDetail.tsx - Upgraded interactive version
- *
- * Notes:
- * - Keep Tailwind CSS configured in your app
- * - Requires: lucide-react, framer-motion
- * - Uses local assets imported above (hybridpic, samirPic, sonuPic, shreshthPic)
+ * ProjectDetail.tsx - Fixed responsive version
  */
 
-// Interfaces
+// Interfaces (keep the same)
 interface ProjectFeature {
   icon: string;
   title: string;
@@ -98,7 +93,7 @@ interface ProjectData {
 
 type ProjectsData = Record<string, ProjectData>;
 
-// small animation presets
+// Animation presets
 const fadeIn = {
   hidden: { opacity: 0, y: 8 },
   visible: (i = 1) => ({ opacity: 1, y: 0, transition: { delay: 0.06 * i } }),
@@ -125,6 +120,36 @@ export default function ProjectDetail(): JSX.Element {
   const [copied, setCopied] = useState(false);
   const [progress, setProgress] = useState(0);
   const pageRef = useRef<HTMLDivElement | null>(null);
+  const mobileMenuRef = useRef<HTMLDivElement | null>(null);
+
+  // Handle window resize to close mobile menu on desktop
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth >= 768) {
+        setMobileMenuOpen(false);
+      }
+    };
+
+    // Handle click outside mobile menu
+    const handleClickOutside = (event: MouseEvent) => {
+      if (mobileMenuRef.current && !mobileMenuRef.current.contains(event.target as Node)) {
+        setMobileMenuOpen(false);
+      }
+    };
+
+    window.addEventListener('resize', handleResize);
+    document.addEventListener('mousedown', handleClickOutside);
+
+    return () => {
+      window.removeEventListener('resize', handleResize);
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, []);
+
+  // Close mobile menu when navigating
+  useEffect(() => {
+    setMobileMenuOpen(false);
+  }, [projectId, activeTab]);
 
   // Helper: scroll to anchor in page
   const scrollToAnchor = useCallback((hash: string) => {
@@ -132,228 +157,208 @@ export default function ProjectDetail(): JSX.Element {
     const el = document.getElementById(id);
     if (el) {
       el.scrollIntoView({ behavior: "smooth", block: "start" });
-    } else {
-      // fallback: small scroll
-      window.scrollTo({ top: 0, behavior: "smooth" });
     }
     setMobileMenuOpen(false);
   }, []);
 
-  // Mobile menu navigation handler
-  const handleMobileNav = useCallback((action: () => void) => {
-    action();
-    setMobileMenuOpen(false);
-  }, []);
-
+  // Scroll progress effect
   useEffect(() => {
     const onScroll = () => {
       setScrolled(window.scrollY > 50);
-      // progress
       const docHeight = document.documentElement.scrollHeight - window.innerHeight;
       const pct = docHeight > 0 ? Math.min(100, Math.round((window.scrollY / docHeight) * 100)) : 0;
       setProgress(pct);
     };
+    
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  // Projects data (keeps same two projects, start date Oct 1, 2025, custom roadmap)
-  const projectsData: ProjectsData = useMemo(
-    () => ({
-      drishti: {
-        title: "Drone Drishti",
-        description: "AI-driven drone for search & rescue in crowded and dynamic environments.",
-        detailedDescription:
-          "Drone Drishti is an AI and avionics driven project by the Shivalik College Drone Club. Built to detect and assist in search & rescue missions in large events and disaster scenarios, the system integrates computer vision, long-range telemetry and robust obstacle avoidance.",
-        extra: "On-device ML, thermal imaging and long-range telemetry for real-time assistance.",
-        image: "https://images.unsplash.com/photo-1473968512647-3e447244af8f?auto=format&fit=crop&w=1600&q=80",
-        status: "Active Development",
-        startDate: "October 1, 2025",
-        expectedCompletion: "October 2026",
-        budget: "₹1,50,000",
-        features: [
-          { icon: "brain", title: "AI Recognition", description: "On-device person and object detection." },
-          { icon: "broadcast", title: "Telemetry", description: "Long-range, low-latency telemetry link." },
-          { icon: "shield", title: "Obstacle Avoidance", description: "LIDAR + ultrasonic sensing stack." },
-        ],
-        specs: {
-          flightTime: "45 minutes",
-          maxSpeed: "60 km/h",
-          range: "10 km",
-          camera: "4K RGB + thermal",
-          sensors: "LIDAR, Thermal, GPS, IMU, Ultrasonic",
-          weight: "2.4 kg",
-          battery: "LiPo 6S 10000mAh",
-          communication: "5G, WiFi, RF",
-        },
-        technologies: ["Computer Vision", "PyTorch", "ROS", "IoT", "Embedded C"],
-        gallery: [
-          "https://images.unsplash.com/photo-1508614589041-895b88991e3e?auto=format&fit=crop&w=1200&q=80",
-          "https://images.unsplash.com/photo-1473968512647-3e447244af8f?auto=format&fit=crop&w=1200&q=80",
-          "https://images.unsplash.com/photo-1579829366248-204fe8413f31?auto=format&fit=crop&w=1200&q=80",
-        ],
-       teamMembers:  [
-  
-  {
-    name: "Shreshth Upreti",
-    role: "Vice President & Systems Integration",
-    avatar: shreshthPic,  // Replace with actual image source
-    bio: "Systems & electronics lead — flight controllers, telemetry, power distribution and hardware integration.",
-    linkedin: "https://www.linkedin.com/in/shreshth-upreti",
-  },
-  {
-    name: "Isha",
-    role: "Researcher",
-    avatar: ishaPic,  // Replace with actual image source
-    bio: "Involved in research and development, focusing on new techniques and innovations for the project.",
-    email: "ishadevi272@gmail.com",
-  },
-  {
-    name: "Sonu Kumar",
-    role: "President & Software Lead",
-    avatar: sonuPic,  // Replace with actual image source
-    bio: "Leads software architecture, mission planning and algorithm design for recognition and control.",
-    linkedin: "https://www.linkedin.com/in/sonu-kumar",
-  },
-  {
-    name: "Samir Pandey",
-    role: "Treasurer & Full-Stack Developer",
-    avatar: samirPic,  // Replace with actual image source
-    bio: "Leads the web dashboard, telemetry UI and integration between front-end and backend logs. Manages procurement and budgeting.",
-    email: "pamdeysamir@gmail.com",
-    linkedin: "https://www.linkedin.com/in/samir-pandey",
-  },
-  {
-    name: "Saurav Kumar",
-    role: "Workshop Head & Hardware Lead",
-    avatar: sauravPic,  // Replace with actual image source
-    bio: "Oversees all hardware-related tasks, including prototyping, assembly, and testing of hardware components.",
-    email: "sauravverma523@gmail.com",
-  },
-   {
-    name: "Aradhya Tyagi",
-    role: "Researcher",
-    avatar: aradhyaPic,  // Replace with actual image source
-    bio: "Conducts research and experiments related to the project’s technical aspects.",
-    email: "aaradhyatyagi016@gmail.com",
-  },
-  {
-    name: "Khushi Thapliyal",
-    role: "Event Coordinator",
-    avatar: khushiPic,  // Replace with actual image source
-    bio: "Handles event planning, organizing schedules, and team coordination for events.",
-    email: "thapliyalkhushi3@gmail.com",
-  },
- 
-  
-  {
-    name: "Subhankar Dhara",
-    role: "Mechanical Head",
-    avatar: subhankarPic,  // Replace with actual image source
-    bio: "Leads the mechanical team, focusing on design, structural integrity, and assembly of the product.",
-    email: "jh20354060604@gmail.com",
-  },
-  {
-    name: "Prashant Pandey",
-    role: "Backend Developer",
-    avatar: prashantPic,  // Replace with actual image source
-    bio: "Responsible for server-side logic, database management, and API development.",
-    email: "alphastudent87@gmail.com",
-  },
-  {
-    name: "Tabassum Praveen",
-    role: "Event Coordinator",
-    avatar: tabassumPic,  // Replace with actual image source
-    bio: "Coordinates events, logistics, and communication between the team and stakeholders.",
-    email: "perveentabassum21@gmail.com",
-  },
-  
-  
-  {
-    name: "Akshat Bhatri",
-    role: "Researcher",
-    avatar: akshatPic,  // Replace with actual image source
-    bio: "Contributes to research and experimentation, focusing on product improvement and prototype testing.",
-    email: "akshatbhartari73@gmail.com",
-  }
-  
-],
-
-        timeline: [
-          { date: "Oct 1, 2025", milestone: "Kickoff", details: "Roles assigned, initial requirements and research.", icon: <Cpu className="w-4 h-4" /> },
-          { date: "Nov 2025", milestone: "Component Selection", details: "Select flight controller, compute, sensors and comms.", icon: <Globe className="w-4 h-4" /> },
-          { date: "Jan 2026", milestone: "Prototype Design", details: "Finalize mechanical and PCB layouts.", icon: <Zap className="w-4 h-4" /> },
-          { date: "Mar 2026", milestone: "Assembly & Bench Test", details: "Assemble first prototype and bench validation.", icon: <Activity className="w-4 h-4" /> },
-          { date: "May 2026", milestone: "AI Integration", details: "On-device models and telemetry pipeline integration.", icon: <Cpu className="w-4 h-4" /> },
-          { date: "Jul 2026", milestone: "Field Trials", details: "Controlled outdoor testing and range validation.", icon: <Shield className="w-4 h-4" /> },
-          { date: "Sep 2026", milestone: "Optimization", details: "Model & power optimizations; robustness improvements.", icon: <Zap className="w-4 h-4" /> },
-          { date: "Oct 2026", milestone: "Showcase", details: "College showcase and final documentation.", icon: <Users className="w-4 h-4" /> },
-        ],
-        challenges: [
-          "Robust detection in diverse lighting",
-          "Low-latency telemetry security",
-          "Power vs compute tradeoffs",
-        ],
-        applications: ["Search & rescue", "Disaster assessment", "Crowd safety"],
+  // Projects data (same as before)
+  const projectsData: ProjectsData = useMemo(() => ({
+    drishti: {
+      title: "Drone Drishti",
+      description: "AI-driven drone for search & rescue in crowded and dynamic environments.",
+      detailedDescription: "Drone Drishti is an AI and avionics driven project by the Shivalik College Drone Club. Built to detect and assist in search & rescue missions in large events and disaster scenarios, the system integrates computer vision, long-range telemetry and robust obstacle avoidance.",
+      extra: "On-device ML, thermal imaging and long-range telemetry for real-time assistance.",
+      image: "https://images.unsplash.com/photo-1473968512647-3e447244af8f?auto=format&fit=crop&w=1600&q=80",
+      status: "Active Development",
+      startDate: "October 1, 2025",
+      expectedCompletion: "October 2026",
+      budget: "₹1,50,000",
+      features: [
+        { icon: "brain", title: "AI Recognition", description: "On-device person and object detection." },
+        { icon: "broadcast", title: "Telemetry", description: "Long-range, low-latency telemetry link." },
+        { icon: "shield", title: "Obstacle Avoidance", description: "LIDAR + ultrasonic sensing stack." },
+      ],
+      specs: {
+        flightTime: "45 minutes",
+        maxSpeed: "60 km/h",
+        range: "10 km",
+        camera: "4K RGB + thermal",
+        sensors: "LIDAR, Thermal, GPS, IMU, Ultrasonic",
+        weight: "2.4 kg",
+        battery: "LiPo 6S 10000mAh",
+        communication: "5G, WiFi, RF",
       },
-      hybrid: {
-        title: "CBII Hybrid Drone",
-        description: "Quadcopter that transitions air ↔ water for rescue and inspection.",
-        detailedDescription:
-          "CBII Hybrid Drone addresses dual-environment missions by combining aerial flight with water surface and shallow underwater capabilities using sealed electronics and transition mechanics.",
-        extra: "Optimized for flood response and underwater inspection workflows.",
-        image: hybridpic,
-        status: "Prototype Testing",
-        startDate: "October 1, 2025",
-        expectedCompletion: "December 2026",
-        budget: "₹9,85,000",
-        features: [
-          { icon: "water", title: "Amphibious", description: "Operates in air and water with transition mechanism." },
-          { icon: "tint", title: "Waterproofing", description: "Sealed enclosures and marine-grade materials." },
-        ],
-        specs: {
-          flightTime: "30 min (air)",
-          maxSpeed: "50 km/h (air), 15 km/h (water)",
-          range: "5 km (air), 2 km (water)",
-          maxDepth: "50 m",
-          camera: "4K + underwater camera",
-          sensors: "Sonar, Depth sensors, IMU",
-          weight: "3.2 kg",
-          battery: "Waterproof LiPo 6S 12000mAh",
-          communication: "RF (underwater), WiFi (surface)",
+      technologies: ["Computer Vision", "PyTorch", "ROS", "IoT", "Embedded C"],
+      gallery: [
+        "https://images.unsplash.com/photo-1508614589041-895b88991e3e?auto=format&fit=crop&w=1200&q=80",
+        "https://images.unsplash.com/photo-1473968512647-3e447244af8f?auto=format&fit=crop&w=1200&q=80",
+        "https://images.unsplash.com/photo-1579829366248-204fe8413f31?auto=format&fit=crop&w=1200&q=80",
+      ],
+      teamMembers: [
+        {
+          name: "Shreshth Upreti",
+          role: "Vice President & Systems Integration",
+          avatar: shreshthPic,
+          bio: "Systems & electronics lead — flight controllers, telemetry, power distribution and hardware integration.",
+          linkedin: "https://www.linkedin.com/in/shreshth-upreti",
         },
-        technologies: ["Amphibious engineering", "Marine coatings", "Embedded systems", "Sonar"],
-        gallery: [
-          "https://images.unsplash.com/photo-1475087542963-13ab5e611954?auto=format&fit=crop&w=1200&q=80",
-          "https://images.unsplash.com/photo-1581092580497-e0d23cbdf1dc?auto=format&fit=crop&w=1200&q=80",
-        ],
-        teamMembers: [
-          { name: "Samir Pandey", role: "Project Lead & Mechanical Design", avatar: samirPic, bio: "Mechanical architecture & sealed enclosure design." },
-          { name: "Shreshth Upreti", role: "Team Lead & Systems Integration", avatar: shreshthPic, bio: "Electronics, sensors and power integration." },
-          { name: "Sonu Kumar", role: "Software Team Head", avatar: sonuPic, bio: "Navigation & mission planning software." },
-        ],
-        timeline: [
-          { date: "Oct 1, 2025", milestone: "Kickoff & Concept", details: "Define environments and baseline specs.", icon: <Cpu className="w-4 h-4" /> },
-          { date: "Dec 2025", milestone: "Hull & Hydrodynamics", details: "Simulations and hull prototypes.", icon: <Zap className="w-4 h-4" /> },
-          { date: "Feb 2026", milestone: "Sealed Electronics", details: "Design sealed housings and connectors.", icon: <Shield className="w-4 h-4" /> },
-          { date: "Apr 2026", milestone: "Prototype Assembly", details: "Assemble dual-propulsion prototype.", icon: <Activity className="w-4 h-4" /> },
-          { date: "Jun 2026", milestone: "Surface Trials", details: "Testing on lakes for float/stability.", icon: <Globe className="w-4 h-4" /> },
-          { date: "Aug 2026", milestone: "Underwater Tests", details: "Shallow underwater trials & sonar tuning.", icon: <Camera className="w-4 h-4" /> },
-          { date: "Oct 2026", milestone: "Field Trials", details: "Real-world robustness testing.", icon: <Shield className="w-4 h-4" /> },
-          { date: "Dec 2026", milestone: "Completion", details: "Finalize docs and demo.", icon: <Users className="w-4 h-4" /> },
-        ],
-        challenges: [
-          "Reliable air-water transition",
-          "Waterproof seals and connectors",
-          "Control stability in mixed mediums",
-        ],
-        applications: ["Flood response", "Underwater inspection", "Aquaculture monitoring"],
+        {
+          name: "Isha",
+          role: "Researcher",
+          avatar: ishaPic,
+          bio: "Involved in research and development, focusing on new techniques and innovations for the project.",
+          email: "ishadevi272@gmail.com",
+        },
+        {
+          name: "Sonu Kumar",
+          role: "President & Software Lead",
+          avatar: sonuPic,
+          bio: "Leads software architecture, mission planning and algorithm design for recognition and control.",
+          linkedin: "https://www.linkedin.com/in/sonu-kumar",
+        },
+        {
+          name: "Samir Pandey",
+          role: "Treasurer & Full-Stack Developer",
+          avatar: samirPic,
+          bio: "Leads the web dashboard, telemetry UI and integration between front-end and backend logs. Manages procurement and budgeting.",
+          email: "pamdeysamir@gmail.com",
+          linkedin: "https://www.linkedin.com/in/samir-pandey",
+        },
+        {
+          name: "Saurav Kumar",
+          role: "Workshop Head & Hardware Lead",
+          avatar: sauravPic,
+          bio: "Oversees all hardware-related tasks, including prototyping, assembly, and testing of hardware components.",
+          email: "sauravverma523@gmail.com",
+        },
+        {
+          name: "Aradhya Tyagi",
+          role: "Researcher",
+          avatar: aradhyaPic,
+          bio: "Conducts research and experiments related to the project's technical aspects.",
+          email: "aaradhyatyagi016@gmail.com",
+        },
+        {
+          name: "Khushi Thapliyal",
+          role: "Event Coordinator",
+          avatar: khushiPic,
+          bio: "Handles event planning, organizing schedules, and team coordination for events.",
+          email: "thapliyalkhushi3@gmail.com",
+        },
+        {
+          name: "Subhankar Dhara",
+          role: "Mechanical Head",
+          avatar: subhankarPic,
+          bio: "Leads the mechanical team, focusing on design, structural integrity, and assembly of the product.",
+          email: "jh20354060604@gmail.com",
+        },
+        {
+          name: "Prashant Pandey",
+          role: "Backend Developer",
+          avatar: prashantPic,
+          bio: "Responsible for server-side logic, database management, and API development.",
+          email: "alphastudent87@gmail.com",
+        },
+        {
+          name: "Tabassum Praveen",
+          role: "Event Coordinator",
+          avatar: tabassumPic,
+          bio: "Coordinates events, logistics, and communication between the team and stakeholders.",
+          email: "perveentabassum21@gmail.com",
+        },
+        {
+          name: "Akshat Bhatri",
+          role: "Researcher",
+          avatar: akshatPic,
+          bio: "Contributes to research and experimentation, focusing on product improvement and prototype testing.",
+          email: "akshatbhartari73@gmail.com",
+        }
+      ],
+      timeline: [
+        { date: "Oct 1, 2025", milestone: "Kickoff", details: "Roles assigned, initial requirements and research.", icon: <Cpu className="w-4 h-4" /> },
+        { date: "Nov 2025", milestone: "Component Selection", details: "Select flight controller, compute, sensors and comms.", icon: <Globe className="w-4 h-4" /> },
+        { date: "Jan 2026", milestone: "Prototype Design", details: "Finalize mechanical and PCB layouts.", icon: <Zap className="w-4 h-4" /> },
+        { date: "Mar 2026", milestone: "Assembly & Bench Test", details: "Assemble first prototype and bench validation.", icon: <Activity className="w-4 h-4" /> },
+        { date: "May 2026", milestone: "AI Integration", details: "On-device models and telemetry pipeline integration.", icon: <Cpu className="w-4 h-4" /> },
+        { date: "Jul 2026", milestone: "Field Trials", details: "Controlled outdoor testing and range validation.", icon: <Shield className="w-4 h-4" /> },
+        { date: "Sep 2026", milestone: "Optimization", details: "Model & power optimizations; robustness improvements.", icon: <Zap className="w-4 h-4" /> },
+        { date: "Oct 2026", milestone: "Showcase", details: "College showcase and final documentation.", icon: <Users className="w-4 h-4" /> },
+      ],
+      challenges: [
+        "Robust detection in diverse lighting",
+        "Low-latency telemetry security",
+        "Power vs compute tradeoffs",
+      ],
+      applications: ["Search & rescue", "Disaster assessment", "Crowd safety"],
+    },
+    hybrid: {
+      title: "CBII Hybrid Drone",
+      description: "Quadcopter that transitions air ↔ water for rescue and inspection.",
+      detailedDescription: "CBII Hybrid Drone addresses dual-environment missions by combining aerial flight with water surface and shallow underwater capabilities using sealed electronics and transition mechanics.",
+      extra: "Optimized for flood response and underwater inspection workflows.",
+      image: hybridpic,
+      status: "Prototype Testing",
+      startDate: "October 1, 2025",
+      expectedCompletion: "December 2026",
+      budget: "₹9,85,000",
+      features: [
+        { icon: "water", title: "Amphibious", description: "Operates in air and water with transition mechanism." },
+        { icon: "tint", title: "Waterproofing", description: "Sealed enclosures and marine-grade materials." },
+      ],
+      specs: {
+        flightTime: "30 min (air)",
+        maxSpeed: "50 km/h (air), 15 km/h (water)",
+        range: "5 km (air), 2 km (water)",
+        maxDepth: "50 m",
+        camera: "4K + underwater camera",
+        sensors: "Sonar, Depth sensors, IMU",
+        weight: "3.2 kg",
+        battery: "Waterproof LiPo 6S 12000mAh",
+        communication: "RF (underwater), WiFi (surface)",
       },
-    }),
-    []
-  );
+      technologies: ["Amphibious engineering", "Marine coatings", "Embedded systems", "Sonar"],
+      gallery: [
+        "https://images.unsplash.com/photo-1475087542963-13ab5e611954?auto=format&fit=crop&w=1200&q=80",
+        "https://images.unsplash.com/photo-1581092580497-e0d23cbdf1dc?auto=format&fit=crop&w=1200&q=80",
+      ],
+      teamMembers: [
+        { name: "Samir Pandey", role: "Project Lead & Mechanical Design", avatar: samirPic, bio: "Mechanical architecture & sealed enclosure design." },
+        { name: "Shreshth Upreti", role: "Team Lead & Systems Integration", avatar: shreshthPic, bio: "Electronics, sensors and power integration." },
+        { name: "Sonu Kumar", role: "Software Team Head", avatar: sonuPic, bio: "Navigation & mission planning software." },
+      ],
+      timeline: [
+        { date: "Oct 1, 2025", milestone: "Kickoff & Concept", details: "Define environments and baseline specs.", icon: <Cpu className="w-4 h-4" /> },
+        { date: "Dec 2025", milestone: "Hull & Hydrodynamics", details: "Simulations and hull prototypes.", icon: <Zap className="w-4 h-4" /> },
+        { date: "Feb 2026", milestone: "Sealed Electronics", details: "Design sealed housings and connectors.", icon: <Shield className="w-4 h-4" /> },
+        { date: "Apr 2026", milestone: "Prototype Assembly", details: "Assemble dual-propulsion prototype.", icon: <Activity className="w-4 h-4" /> },
+        { date: "Jun 2026", milestone: "Surface Trials", details: "Testing on lakes for float/stability.", icon: <Globe className="w-4 h-4" /> },
+        { date: "Aug 2026", milestone: "Underwater Tests", details: "Shallow underwater trials & sonar tuning.", icon: <Camera className="w-4 h-4" /> },
+        { date: "Oct 2026", milestone: "Field Trials", details: "Real-world robustness testing.", icon: <Shield className="w-4 h-4" /> },
+        { date: "Dec 2026", milestone: "Completion", details: "Finalize docs and demo.", icon: <Users className="w-4 h-4" /> },
+      ],
+      challenges: [
+        "Reliable air-water transition",
+        "Waterproof seals and connectors",
+        "Control stability in mixed mediums",
+      ],
+      applications: ["Flood response", "Underwater inspection", "Aquaculture monitoring"],
+    },
+  }), []);
 
-  // simulate fetch
+  // Simulate fetch
   useEffect(() => {
     setLoading(true);
     setError(null);
@@ -370,32 +375,26 @@ export default function ProjectDetail(): JSX.Element {
     return () => clearTimeout(timer);
   }, [projectId, projectsData]);
 
-  // Image modal handlers
-  const openImageModal = useCallback(
-    (index: number) => {
-      if (!project?.gallery || project.gallery.length === 0) return;
-      setActiveImage(Math.max(0, Math.min(index, project.gallery.length - 1)));
-      setShowImageModal(true);
-      document.body.style.overflow = "hidden";
-    },
-    [project]
-  );
+  // Image modal handlers (same as before)
+  const openImageModal = useCallback((index: number) => {
+    if (!project?.gallery || project.gallery.length === 0) return;
+    setActiveImage(Math.max(0, Math.min(index, project.gallery.length - 1)));
+    setShowImageModal(true);
+    document.body.style.overflow = "hidden";
+  }, [project]);
 
   const closeImageModal = useCallback(() => {
     setShowImageModal(false);
     document.body.style.overflow = "";
   }, []);
 
-  const navigateImage = useCallback(
-    (dir: "prev" | "next") => {
-      if (!project?.gallery) return;
-      setActiveImage((prev) => {
-        const len = project.gallery.length;
-        return dir === "next" ? (prev + 1) % len : (prev - 1 + len) % len;
-      });
-    },
-    [project]
-  );
+  const navigateImage = useCallback((dir: "prev" | "next") => {
+    if (!project?.gallery) return;
+    setActiveImage((prev) => {
+      const len = project.gallery.length;
+      return dir === "next" ? (prev + 1) % len : (prev - 1 + len) % len;
+    });
+  }, [project]);
 
   useEffect(() => {
     if (!showImageModal) return;
@@ -408,7 +407,7 @@ export default function ProjectDetail(): JSX.Element {
     return () => window.removeEventListener("keydown", handler);
   }, [showImageModal, closeImageModal, navigateImage]);
 
-  // copy link
+  // Share functions (same as before)
   const handleCopy = useCallback(async () => {
     try {
       const url = typeof window !== "undefined" ? window.location.href : "";
@@ -420,7 +419,6 @@ export default function ProjectDetail(): JSX.Element {
     }
   }, []);
 
-  // share to platforms
   const shareTo = useCallback((platform: "twitter" | "facebook" | "linkedin") => {
     const url = encodeURIComponent(typeof window !== "undefined" ? window.location.href : "");
     const text = encodeURIComponent(project?.title || "Drone Project");
@@ -431,45 +429,36 @@ export default function ProjectDetail(): JSX.Element {
     window.open(shareUrl, "_blank", "noopener,noreferrer");
   }, [project]);
 
-  // contact
   const handleContact = useCallback(() => {
-    // we'll keep alert for simplicity; you can replace with a modal form
     alert(`Thanks — the ${project?.title} team will reach out to you soon!`);
   }, [project]);
 
-  // small skeleton / shimmer loader component
+  // Skeleton loader
   const Skeleton: React.FC<{ className?: string }> = ({ className = "" }) => (
     <div className={`animate-pulse bg-gradient-to-r from-gray-200 via-gray-100 to-gray-200 dark:from-gray-700 dark:via-gray-800 dark:to-gray-700 rounded ${className}`} />
   );
 
-  // icon resolver for timeline step (string -> lucide)
+  // Icon resolver
   const renderStepIcon = (icon: React.ReactNode | string | undefined) => {
     if (!icon) return <Activity className="w-5 h-5 text-white" />;
     if (typeof icon === "string") {
       switch (icon) {
-        case "cpu":
-          return <Cpu className="w-5 h-5 text-white" />;
-        case "zap":
-          return <Zap className="w-5 h-5 text-white" />;
-        case "shield":
-          return <Shield className="w-5 h-5 text-white" />;
-        default:
-          return <Activity className="w-5 h-5 text-white" />;
+        case "cpu": return <Cpu className="w-5 h-5 text-white" />;
+        case "zap": return <Zap className="w-5 h-5 text-white" />;
+        case "shield": return <Shield className="w-5 h-5 text-white" />;
+        default: return <Activity className="w-5 h-5 text-white" />;
       }
     }
     return icon;
   };
 
-  // If loading show skeleton layout
   if (loading) {
     return (
       <div className="min-h-screen bg-gray-100 dark:bg-gray-900 p-6">
-        {/* top progress shimmer */}
         <div className="max-w-7xl mx-auto">
           <div className="h-3 w-full rounded-full overflow-hidden mb-6 bg-gray-200/60">
             <div className="h-full w-1/3 shimmer" />
           </div>
-
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
             <div className="lg:col-span-2 space-y-6">
               <Skeleton className="h-64 rounded-2xl" />
@@ -479,11 +468,9 @@ export default function ProjectDetail(): JSX.Element {
                 <Skeleton className="h-24 rounded-lg" />
                 <Skeleton className="h-24 rounded-lg" />
               </div>
-
               <Skeleton className="h-48 rounded-2xl" />
               <Skeleton className="h-48 rounded-2xl" />
             </div>
-
             <aside className="space-y-6">
               <Skeleton className="h-40 rounded-2xl" />
               <Skeleton className="h-24 rounded-2xl" />
@@ -491,8 +478,6 @@ export default function ProjectDetail(): JSX.Element {
             </aside>
           </div>
         </div>
-
-        {/* custom shimmer style */}
         <style>{`
           .shimmer {
             background: linear-gradient(90deg, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0.25) 50%, rgba(255,255,255,0.05) 100%);
@@ -520,7 +505,6 @@ export default function ProjectDetail(): JSX.Element {
     );
   }
 
-  // main render
   return (
     <div ref={pageRef} className="min-h-screen bg-gray-100 dark:bg-gray-900 text-gray-800 dark:text-gray-200">
       {/* TOP SCROLL PROGRESS */}
@@ -562,44 +546,60 @@ export default function ProjectDetail(): JSX.Element {
                 <button onClick={toggleTheme} className="p-2 rounded-lg bg-gray-100 dark:bg-gray-800">
                   {isDark ? <Sun className="w-5 h-5 text-yellow-400" /> : <Moon className="w-5 h-5 text-gray-600" />}
                 </button>
-                <button onClick={() => setMobileMenuOpen(!mobileMenuOpen)} className="p-2 rounded-lg bg-gray-100 dark:bg-gray-800 mobile-menu-button" aria-label="Toggle menu" aria-expanded={mobileMenuOpen}>
+                <button 
+                  onClick={() => setMobileMenuOpen(!mobileMenuOpen)} 
+                  className="p-2 rounded-lg bg-gray-100 dark:bg-gray-800 mobile-menu-button" 
+                  aria-label="Toggle menu" 
+                  aria-expanded={mobileMenuOpen}
+                >
                   {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
                 </button>
               </div>
             </div>
             
-            {/* Mobile Menu */}
-            {mobileMenuOpen && (
-              <div className="mobile-menu-container md:hidden mt-2 bg-white dark:bg-gray-900 px-4 py-3 rounded-lg shadow">
-                <button 
-                  onClick={() => handleMobileNav(() => navigate("/"))} 
-                  className="block w-full text-left py-2 text-gray-700 dark:text-gray-300 hover:text-indigo-600 transition"
+            {/* Mobile Menu - Fixed positioning and transitions */}
+            <AnimatePresence>
+              {mobileMenuOpen && (
+                <motion.div
+                  ref={mobileMenuRef}
+                  initial={{ opacity: 0, height: 0 }}
+                  animate={{ opacity: 1, height: "auto" }}
+                  exit={{ opacity: 0, height: 0 }}
+                  transition={{ duration: 0.2 }}
+                  className="md:hidden overflow-hidden"
                 >
-                  Home
-                </button>
-                <button 
-                  onClick={() => handleMobileNav(() => scrollToAnchor("#team"))} 
-                  className="block w-full text-left py-2 text-gray-700 dark:text-gray-300 hover:text-indigo-600 transition"
-                >
-                  Team
-                </button>
-                <button 
-                  onClick={() => handleMobileNav(() => scrollToAnchor("#roadmap"))} 
-                  className="block w-full text-left py-2 text-gray-700 dark:text-gray-300 hover:text-indigo-600 transition"
-                >
-                  Roadmap
-                </button>
-                <a 
-                  href="https://shivalikcollege.edu.in" 
-                  target="_blank" 
-                  rel="noreferrer" 
-                  className="block w-full text-left py-2 text-gray-700 dark:text-gray-300 hover:text-indigo-600 transition"
-                  onClick={() => setMobileMenuOpen(false)}
-                >
-                  College Site
-                </a>
-              </div>
-            )}
+                  <div className="bg-white dark:bg-gray-900 px-4 py-3 rounded-lg shadow mt-2 border border-gray-200 dark:border-gray-700">
+                    <button 
+                      onClick={() => { navigate("/"); setMobileMenuOpen(false); }} 
+                      className="block w-full text-left py-2 text-gray-700 dark:text-gray-300 hover:text-indigo-600 transition"
+                    >
+                      Home
+                    </button>
+                    <button 
+                      onClick={() => scrollToAnchor("#team")} 
+                      className="block w-full text-left py-2 text-gray-700 dark:text-gray-300 hover:text-indigo-600 transition"
+                    >
+                      Team
+                    </button>
+                    <button 
+                      onClick={() => scrollToAnchor("#roadmap")} 
+                      className="block w-full text-left py-2 text-gray-700 dark:text-gray-300 hover:text-indigo-600 transition"
+                    >
+                      Roadmap
+                    </button>
+                    <a 
+                      href="https://shivalikcollege.edu.in" 
+                      target="_blank" 
+                      rel="noreferrer" 
+                      className="block w-full text-left py-2 text-gray-700 dark:text-gray-300 hover:text-indigo-600 transition"
+                      onClick={() => setMobileMenuOpen(false)}
+                    >
+                      College Site
+                    </a>
+                  </div>
+                </motion.div>
+              )}
+            </AnimatePresence>
           </div>
         </nav>
       </div>
@@ -628,36 +628,40 @@ export default function ProjectDetail(): JSX.Element {
               <p className="text-indigo-100 text-sm mt-2">Shivalik College of Engineering — Drone Club</p>
             </div>
 
-            {/* small neon accent */}
             <div aria-hidden className="absolute -top-6 right-6 w-48 h-48 rounded-full blur-3xl opacity-30 bg-gradient-to-tr from-indigo-400 to-sky-300" />
           </div>
         </motion.section>
 
-        {/* Tabs */}
+        {/* Tabs - Improved responsive design */}
         <div className="bg-white dark:bg-gray-800 rounded-xl shadow-md mb-8 overflow-x-auto">
-          <div className="flex border-b border-gray-200 dark:border-gray-700">
+          <div className="flex min-w-max border-b border-gray-200 dark:border-gray-700">
             {["overview", "specs", "gallery", "timeline", "team", "challenges"].map((tab) => (
               <button
                 key={tab}
                 onClick={() => setActiveTab(tab)}
-                className={`px-6 py-4 font-medium text-sm md:text-base capitalize ${activeTab === tab ? "text-indigo-600 border-b-2 border-indigo-600" : "text-gray-500 dark:text-gray-400 hover:text-gray-700"}`}
+                className={`px-4 py-3 font-medium text-sm md:text-base capitalize whitespace-nowrap ${activeTab === tab ? "text-indigo-600 border-b-2 border-indigo-600" : "text-gray-500 dark:text-gray-400 hover:text-gray-700"}`}
               >
-                {tab === "overview" ? "Project Overview" : tab === "specs" ? "Technical Specs" : tab === "gallery" ? "Media Gallery" : tab === "timeline" ? "Project Roadmap" : tab === "team" ? "Team Members" : "Challenges & Applications"}
+                {tab === "overview" ? "Project Overview" : 
+                 tab === "specs" ? "Technical Specs" : 
+                 tab === "gallery" ? "Media Gallery" : 
+                 tab === "timeline" ? "Project Roadmap" : 
+                 tab === "team" ? "Team Members" : 
+                 "Challenges & Applications"}
               </button>
             ))}
           </div>
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-          {/* MAIN */}
+          {/* MAIN CONTENT */}
           <div className="lg:col-span-2 space-y-8">
-            {/* Overview */}
+            {/* Overview Tab */}
             {activeTab === "overview" && (
               <motion.div initial="hidden" animate="visible" variants={fadeIn as any}>
                 <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-md p-6">
                   <h2 className="text-2xl font-bold mb-4 flex items-center gap-3"><BarChart className="w-6 h-6 text-indigo-600" /> Project Overview</h2>
 
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
                     <div className="p-4 rounded-lg bg-gradient-to-r from-indigo-50 to-white dark:from-slate-800 border hover:border-indigo-200 transition">
                       <p className="text-sm text-indigo-600">Start Date</p>
                       <p className="font-semibold">{project.startDate}</p>
@@ -684,7 +688,7 @@ export default function ProjectDetail(): JSX.Element {
                 {/* Features */}
                 <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-md p-6 mt-4">
                   <h3 className="text-2xl font-bold mb-4 flex items-center gap-3"><Clipboard className="w-5 h-5 text-indigo-600" /> Key Features</h3>
-                  <div className="grid md:grid-cols-2 gap-4">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     {project.features.map((f, i) => (
                       <motion.div key={i} initial="rest" whileHover="hover" animate="rest" variants={cardHover as any} className="flex items-start gap-4 p-4 rounded-lg bg-gradient-to-br from-white to-indigo-50">
                         <div className="p-3 rounded-lg bg-indigo-100">
@@ -711,7 +715,8 @@ export default function ProjectDetail(): JSX.Element {
               </motion.div>
             )}
 
-            {/* Specs */}
+            {/* Other tabs content remains the same as before */}
+            {/* Specs Tab */}
             {activeTab === "specs" && (
               <motion.div initial="hidden" animate="visible" variants={fadeIn as any}>
                 <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-md p-6">
@@ -728,7 +733,7 @@ export default function ProjectDetail(): JSX.Element {
               </motion.div>
             )}
 
-            {/* Gallery */}
+            {/* Gallery Tab */}
             {activeTab === "gallery" && (
               <motion.div initial="hidden" animate="visible" variants={fadeIn as any}>
                 <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-md p-6">
@@ -747,14 +752,13 @@ export default function ProjectDetail(): JSX.Element {
               </motion.div>
             )}
 
-            {/* Roadmap / Timeline */}
+            {/* Timeline Tab */}
             {activeTab === "timeline" && project.timeline && (
               <motion.div initial="hidden" animate="visible" variants={fadeIn as any}>
                 <div id="roadmap" className="bg-white dark:bg-gray-800 rounded-2xl shadow-md p-6">
                   <h3 className="text-2xl font-bold mb-6 flex items-center gap-3"><Calendar className="w-6 h-6 text-indigo-600" /> Project Roadmap</h3>
 
                   <div className="relative">
-                    {/* vertical line */}
                     <div className="absolute left-6 top-4 bottom-4 w-0.5 bg-indigo-200 dark:bg-indigo-900" />
                     <div className="space-y-8">
                       {project.timeline.map((step, idx) => (
@@ -763,7 +767,7 @@ export default function ProjectDetail(): JSX.Element {
                             {renderStepIcon(step.icon)}
                           </div>
                           <div className="bg-white/70 dark:bg-gray-900/60 p-4 rounded-lg shadow-sm backdrop-blur-sm">
-                            <div className="flex items-center justify-between">
+                            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
                               <h4 className="font-semibold">{step.milestone}</h4>
                               <span className="text-sm text-gray-500 dark:text-gray-400">{step.date}</span>
                             </div>
@@ -777,7 +781,7 @@ export default function ProjectDetail(): JSX.Element {
               </motion.div>
             )}
 
-            {/* Team */}
+            {/* Team Tab */}
             {activeTab === "team" && project.teamMembers && (
               <motion.div initial="hidden" animate="visible" variants={fadeIn as any}>
                 <div id="team" className="bg-white dark:bg-gray-800 rounded-2xl shadow-md p-6">
@@ -787,7 +791,7 @@ export default function ProjectDetail(): JSX.Element {
                       <motion.div key={idx} whileHover={{ scale: 1.02 }} className="flex items-start gap-4 p-4 rounded-lg bg-gradient-to-br from-white to-indigo-50">
                         <img src={m.avatar} alt={m.name} className="w-16 h-16 rounded-full object-cover" />
                         <div className="flex-1">
-                          <div className="flex items-start justify-between">
+                          <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-2">
                             <div>
                               <h4 className="font-bold">{m.name}</h4>
                               <p className="text-indigo-600 text-sm">{m.role}</p>
@@ -806,7 +810,7 @@ export default function ProjectDetail(): JSX.Element {
               </motion.div>
             )}
 
-            {/* Challenges */}
+            {/* Challenges Tab */}
             {activeTab === "challenges" && (
               <motion.div initial="hidden" animate="visible" variants={fadeIn as any}>
                 <div className="space-y-6">
@@ -828,11 +832,11 @@ export default function ProjectDetail(): JSX.Element {
             )}
           </div>
 
-          {/* SIDEBAR */}
+          {/* SIDEBAR - Improved responsive layout */}
           <aside className="space-y-8">
-            {/* Project At a Glance (glass + counters) */}
+            {/* Project At a Glance */}
             <motion.div initial="hidden" animate="visible" variants={fadeIn as any} className="rounded-2xl p-6 bg-gradient-to-br from-white to-indigo-50 dark:from-gray-800 dark:to-slate-800 shadow-lg">
-              <div className="flex items-start justify-between">
+              <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4">
                 <div>
                   <h4 className="text-lg font-bold flex items-center gap-2"><BarChart className="w-5 h-5 text-indigo-600" /> Project At a Glance</h4>
                   <p className="text-sm text-gray-600 dark:text-gray-300 mt-1">Quick facts & progress</p>
@@ -871,29 +875,29 @@ export default function ProjectDetail(): JSX.Element {
 
             {/* Share This Project */}
             <motion.div initial="hidden" animate="visible" variants={fadeIn as any} className="bg-white dark:bg-gray-800 rounded-2xl shadow-md p-6">
-              <div className="flex items-center justify-between">
+              <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
                 <h4 className="text-lg font-semibold flex items-center gap-2"><Share2 className="w-5 h-5 text-indigo-600" /> Share This Project</h4>
                 <p className="text-sm text-gray-500">Spread the word</p>
               </div>
 
-              <div className="mt-4 flex gap-3">
-                <motion.button whileTap={{ scale: 0.96 }} onClick={() => shareTo("facebook")} className="flex-1 flex items-center justify-center gap-2 px-3 py-2 rounded-lg bg-blue-600 text-white">
-                  <Facebook className="w-4 h-4" /> Facebook
+              <div className="mt-4 grid grid-cols-3 gap-2">
+                <motion.button whileTap={{ scale: 0.96 }} onClick={() => shareTo("facebook")} className="flex items-center justify-center gap-1 px-2 py-2 rounded-lg bg-blue-600 text-white text-sm">
+                  <Facebook className="w-3 h-3" /> <span className="hidden xs:inline">FB</span>
                 </motion.button>
-                <motion.button whileTap={{ scale: 0.96 }} onClick={() => shareTo("twitter")} className="flex-1 flex items-center justify-center gap-2 px-3 py-2 rounded-lg bg-sky-500 text-white">
-                  <Twitter className="w-4 h-4" /> Twitter
+                <motion.button whileTap={{ scale: 0.96 }} onClick={() => shareTo("twitter")} className="flex items-center justify-center gap-1 px-2 py-2 rounded-lg bg-sky-500 text-white text-sm">
+                  <Twitter className="w-3 h-3" /> <span className="hidden xs:inline">TW</span>
                 </motion.button>
-                <motion.button whileTap={{ scale: 0.96 }} onClick={() => shareTo("linkedin")} className="flex-1 flex items-center justify-center gap-2 px-3 py-2 rounded-lg bg-indigo-700 text-white">
-                  <Linkedin className="w-4 h-4" /> LinkedIn
+                <motion.button whileTap={{ scale: 0.96 }} onClick={() => shareTo("linkedin")} className="flex items-center justify-center gap-1 px-2 py-2 rounded-lg bg-indigo-700 text-white text-sm">
+                  <Linkedin className="w-3 h-3" /> <span className="hidden xs:inline">IN</span>
                 </motion.button>
               </div>
 
               <div className="mt-4 flex gap-2">
-                <button onClick={handleCopy} className="flex-1 px-4 py-2 rounded-lg border border-gray-200 dark:border-gray-700 flex items-center gap-2">
-                  <LinkIcon className="w-4 h-4" /> {copied ? "Link copied!" : "Copy link"}
+                <button onClick={handleCopy} className="flex-1 px-3 py-2 rounded-lg border border-gray-200 dark:border-gray-700 flex items-center justify-center gap-1 text-sm">
+                  <LinkIcon className="w-3 h-3" /> {copied ? "Copied!" : "Copy link"}
                 </button>
-                <a href={`mailto:?subject=${encodeURIComponent(project.title)}&body=${encodeURIComponent(window.location.href)}`} className="px-4 py-2 rounded-lg bg-indigo-600 text-white">
-                  <Clipboard className="w-4 h-4" /> Email
+                <a href={`mailto:?subject=${encodeURIComponent(project.title)}&body=${encodeURIComponent(window.location.href)}`} className="px-3 py-2 rounded-lg bg-indigo-600 text-white text-sm flex items-center gap-1">
+                  <Clipboard className="w-3 h-3" /> Email
                 </a>
               </div>
             </motion.div>
@@ -902,8 +906,8 @@ export default function ProjectDetail(): JSX.Element {
             <motion.div initial="hidden" animate="visible" variants={fadeIn as any} className="bg-white dark:bg-gray-800 rounded-2xl shadow-md p-6">
               <h4 className="text-lg font-semibold mb-3">Top Technologies</h4>
               <div className="flex flex-wrap gap-2">
-                {project.technologies.slice(0, 8).map((t, i) => <span key={i} className="px-3 py-1 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 rounded-full text-sm">{t}</span>)}
-                {project.technologies.length > 8 && <span className="px-3 py-1 bg-gray-100 dark:bg-gray-700 rounded-full text-sm">+{project.technologies.length - 8} more</span>}
+                {project.technologies.slice(0, 6).map((t, i) => <span key={i} className="px-2 py-1 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 rounded-full text-xs">{t}</span>)}
+                {project.technologies.length > 6 && <span className="px-2 py-1 bg-gray-100 dark:bg-gray-700 rounded-full text-xs">+{project.technologies.length - 6} more</span>}
               </div>
             </motion.div>
 
@@ -913,12 +917,12 @@ export default function ProjectDetail(): JSX.Element {
               <div className="space-y-3">
                 {Object.entries(projectsData).filter(([k]) => k !== projectId).map(([k, p]) => (
                   <Link key={k} to={`/projects/${k}`} className="flex items-center gap-3 p-3 rounded-md hover:bg-gray-50 dark:hover:bg-gray-700 transition">
-                    <img src={p.image} alt={p.title} className="w-12 h-12 rounded object-cover" />
-                    <div>
-                      <div className="font-medium">{p.title}</div>
-                      <div className="text-sm text-gray-500">{p.status}</div>
+                    <img src={p.image} alt={p.title} className="w-10 h-10 rounded object-cover" />
+                    <div className="flex-1 min-w-0">
+                      <div className="font-medium text-sm truncate">{p.title}</div>
+                      <div className="text-xs text-gray-500 truncate">{p.status}</div>
                     </div>
-                    <div className="ml-auto text-sm text-gray-400">View</div>
+                    <div className="text-xs text-gray-400 whitespace-nowrap">View</div>
                   </Link>
                 ))}
               </div>
@@ -930,21 +934,31 @@ export default function ProjectDetail(): JSX.Element {
         <AnimatePresence>
           {showImageModal && project && (
             <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="fixed inset-0 z-50 bg-black/90 flex items-center justify-center p-4">
-              <button onClick={closeImageModal} className="absolute top-4 right-4 text-white p-2 rounded-full bg-black/40">
+              <button onClick={closeImageModal} className="absolute top-4 right-4 text-white p-2 rounded-full bg-black/40 z-10">
                 <X className="w-6 h-6" />
               </button>
 
-              <button onClick={() => navigateImage("prev")} className="absolute left-4 text-white p-2 rounded-full bg-black/30">
+              <button onClick={() => navigateImage("prev")} className="absolute left-4 text-white p-2 rounded-full bg-black/30 z-10">
                 <ArrowLeft className="w-6 h-6" />
               </button>
 
-              <motion.img key={activeImage} initial={{ scale: 0.9, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} exit={{ scale: 0.95, opacity: 0 }} src={project.gallery[activeImage]} alt={`${project.title} ${activeImage+1}`} className="max-w-4xl max-h-full object-contain rounded-md shadow-lg" />
+              <motion.img 
+                key={activeImage} 
+                initial={{ scale: 0.9, opacity: 0 }} 
+                animate={{ scale: 1, opacity: 1 }} 
+                exit={{ scale: 0.95, opacity: 0 }} 
+                src={project.gallery[activeImage]} 
+                alt={`${project.title} ${activeImage+1}`} 
+                className="max-w-full max-h-full object-contain rounded-md shadow-lg" 
+              />
 
-              <button onClick={() => navigateImage("next")} className="absolute right-4 text-white p-2 rounded-full bg-black/30">
+              <button onClick={() => navigateImage("next")} className="absolute right-4 text-white p-2 rounded-full bg-black/30 z-10">
                 <ArrowRight className="w-6 h-6" />
               </button>
 
-              <div className="absolute bottom-6 text-white text-sm">{activeImage + 1} / {project.gallery.length}</div>
+              <div className="absolute bottom-6 text-white text-sm bg-black/40 px-3 py-1 rounded-full">
+                {activeImage + 1} / {project.gallery.length}
+              </div>
             </motion.div>
           )}
         </AnimatePresence>
@@ -957,19 +971,6 @@ export default function ProjectDetail(): JSX.Element {
           </div>
         </footer>
       </main>
-
-      {/* Small helpers */}
-      <style>{`
-        /* Subtle neon/glow accent for hero - adjust as desired */
-        .glow {
-          box-shadow: 0 10px 30px rgba(99,102,241,0.12);
-        }
-        /* For the shimmer skeleton (already used above) */
-        @keyframes shimmer {
-          0% { transform: translateX(-100%); }
-          100% { transform: translateX(300%); }
-        }
-      `}</style>
     </div>
   );
 }
