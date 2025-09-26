@@ -37,8 +37,8 @@ const HeroSection = () => {
             Explore More
           </a>
           <a
-            href="https://forms.gle/iG6LmZ1JufbFEPCx6"
-            target="_blank"
+            href="#join"
+            target="_self"
             rel="noopener noreferrer"
             className="border border-white px-6 py-3 rounded-2xl hover:bg-white hover:text-black transition-colors duration-300"
           >

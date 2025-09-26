@@ -10,6 +10,7 @@ import Gallery from "./components/Gallery";
 import Events from "./components/Events";
 import Contact from "./components/Contact";
 import Footer from "./components/Footer";
+import JoinUs from './components/JoinUs';
 import FloatingJoinButton from "./components/FloatingJoinButton";
 import Project from "./components/Project";
 import ProjectDetail from "./components/ProjectDetail"; // ⬅️ create this file
@@ -34,6 +35,7 @@ function App() {
                   <Project />
                   <Events />
                   <FloatingJoinButton />
+                  <JoinUs />
                   <Contact />
                   <Footer />
                 </>
