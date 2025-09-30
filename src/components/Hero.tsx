@@ -1,9 +1,13 @@
 import React from "react";
 import heroImg from "../assets/hero-bg.jpg";
+import { Typewriter } from "react-simple-typewriter";
 
 const HeroSection = () => {
   return (
-    <div id="home" className="relative h-screen w-full bg-black text-white overflow-hidden">
+    <div
+      id="home"
+      className="relative h-screen w-full bg-black text-white overflow-hidden"
+    >
       {/* Background Image */}
       <div
         className="absolute inset-0 bg-cover bg-center brightness-75"
@@ -23,9 +27,21 @@ const HeroSection = () => {
           <span className="text-white">X Club</span>
         </h1>
 
-        {/* Tagline */}
-        <p className="mt-5 text-lg md:text-2xl font-medium max-w-2xl text-gray-200">
-          Empowering the future with drones. Explore, build, and fly with us.
+        {/* Tagline with Typewriter */}
+        <p className="mt-5 text-lg md:text-2xl font-medium max-w-2xl text-gray-200 min-h-[60px]">
+          <Typewriter
+            words={[
+              "Empowering the future with drones.",
+              "Explore, build, and fly with us.",
+              "Innovation takes flight here.",
+            ]}
+            loop={0} // 0 = infinite
+            cursor
+            cursorStyle="|"
+            typeSpeed={70}
+            deleteSpeed={50}
+            delaySpeed={1500}
+          />
         </p>
 
         {/* Buttons */}

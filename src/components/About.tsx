@@ -1,6 +1,50 @@
-import React from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Target, Lightbulb, Trophy } from 'lucide-react';
 import frontimg from '../assets/front.jpg';
+
+// Counter Component
+const Counter: React.FC<{ target: number }> = ({ target }) => {
+  const [count, setCount] = useState(0);
+  const ref = useRef<HTMLDivElement | null>(null);
+  const intervalRef = useRef<NodeJS.Timeout | null>(null);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries[0].isIntersecting) {
+          // Reset before each new animation
+          if (intervalRef.current) clearInterval(intervalRef.current);
+          setCount(0);
+
+          let current = 0;
+          const duration = 2000; // total animation time (2s)
+          const frameRate = 30; // update every 30ms
+          const increment = target / (duration / frameRate);
+
+          intervalRef.current = setInterval(() => {
+            current += increment;
+            if (current >= target) {
+              if (intervalRef.current) clearInterval(intervalRef.current);
+              setCount(target);
+            } else {
+              setCount(Math.floor(current));
+            }
+          }, frameRate);
+        }
+      },
+      { threshold: 0.5 } // run when 50% visible
+    );
+
+    if (ref.current) observer.observe(ref.current);
+
+    return () => {
+      if (intervalRef.current) clearInterval(intervalRef.current);
+      observer.disconnect();
+    };
+  }, [target]);
+
+  return <div ref={ref}>{count}+</div>;
+};
 
 const About: React.FC = () => {
   return (
@@ -36,7 +80,7 @@ const About: React.FC = () => {
               className="rounded-2xl shadow-xl"
             />
             <div className="absolute -bottom-6 -right-6 w-28 h-28 bg-blue-600 text-white text-2xl font-bold rounded-2xl flex items-center justify-center shadow-md">
-              150+
+              <Counter target={150} />
             </div>
           </div>
         </div>
